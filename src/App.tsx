@@ -6,6 +6,11 @@ import styles from './pages/style'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Dashboard from './pages/dashboard/dashboard';
 import Overview from './pages/dashboard/overview';
+import Budgets from './pages/dashboard/budgets';
+import Savings from './pages/dashboard/savings';
+import DebtMgts from './pages/dashboard/debt-mgts';
+import Incomes from './pages/dashboard/incomes';
+import Expenses from './pages/dashboard/expenses';
 
 const Combined = () => {
   return (<>
@@ -33,7 +38,12 @@ function App() {
       <Routes>
         <Route path='/' element={<Combined />} />
         <Route path='/dashboard' element={<Dashboard />}>
-          <Route path='/dashboard:username' element={<Overview />} />
+          <Route path='/dashboard/budgets' element={<Budgets />} />
+          <Route path='/dashboard/savings' element={<Savings />} />
+          <Route path='/dashboard/debt-mgts' element={<DebtMgts />} />
+          <Route path='/dashboard/incomes' element={<Incomes />} />
+          <Route path='/dashboard/expenses' element={<Expenses />} />
+          <Route path='/dashboard/overview' element={<Overview />} />
         </Route>
         <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>

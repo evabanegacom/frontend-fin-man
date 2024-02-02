@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import BudgetService from '../../services/budget-service';
+import ExpenseService from '../../services/expenses-service';
 
-const BudgetForm = () => {
-  const [budget, setBudget] = useState({
+const ExpensesForm = () => {
+  const [saving, setSaving] = useState({
     name: '',
     purpose: '',
     target_amount: '',
@@ -16,8 +16,8 @@ const BudgetForm = () => {
 
   const handleChange = (e:any) => {
     const { name, value, files } = e.target;
-    setBudget((prevBudget) => ({
-      ...prevBudget,
+    setSaving((prevSaving) => ({
+      ...prevSaving,
       [name]: files ? files[0] : value,
     }));
   };
@@ -25,11 +25,11 @@ const BudgetForm = () => {
   const handleSubmit = async (e:any) => {
     e.preventDefault();
     const formData = new FormData();
-    Object.entries(budget).forEach(([key, value]) => {
+    Object.entries(saving).forEach(([key, value]) => {
       formData.append(key, value as any);
     });
     try {
-      await BudgetService.createBudget(formData);
+      await ExpenseService.createExpense(formData);
       // Handle success, redirect, or perform additional actions
     } catch (error) {
       // Handle error
@@ -41,20 +41,20 @@ const BudgetForm = () => {
 <form onSubmit={handleSubmit} className="flex flex-col">
       <label>
         name:
-        <input type="text" name="name" value={budget.name} onChange={handleChange} />
+        <input type="text" name="name" value={saving.name} onChange={handleChange} />
       </label>
 
       <label>
         purpose:
-        <textarea name="purpose" value={budget.purpose} onChange={handleChange} />
+        <textarea name="purpose" value={saving.purpose} onChange={handleChange} />
       </label>
 
       <label>
         target_amount:
-        <input type="number" name="target_amount" value={budget.target_amount} onChange={handleChange} />
+        <input type="number" name="target_amount" value={saving.target_amount} onChange={handleChange} />
       </label>
 
-        <select name='category' onChange={handleChange} value={budget?.category}>
+        <select name='category' onChange={handleChange} value={saving?.category}>
                 <option value="category">category</option>
                 <option value="vacation">vacation</option>
                 <option value="car">car</option>
@@ -65,10 +65,10 @@ const BudgetForm = () => {
 
         <label>
             target_date:
-            <input type="date" name="target_date" value={budget.target_date} onChange={handleChange} />
+            <input type="date" name="target_date" value={saving.target_date} onChange={handleChange} />
         </label>
 
-       <select onChange={handleChange} name='contribution_type' value={budget?.contribution_type}>
+       <select onChange={handleChange} name='contribution_type' value={saving?.contribution_type}>
               <option value="contribution_type">contribution_type</option>
               <option value="weekly">weekly</option>
               <option value="monthly">monthly</option>
@@ -77,7 +77,7 @@ const BudgetForm = () => {
 
         <label>
             contribution_amount:
-            <input type="number" name="contribution_amount" value={budget.contribution_amount} onChange={handleChange} />
+            <input type="number" name="contribution_amount" value={saving.contribution_amount} onChange={handleChange} />
         </label>
 
       {/* Add other form fields as needed */}
@@ -92,4 +92,4 @@ const BudgetForm = () => {
   );
 };
 
-export default BudgetForm;
+export default ExpensesForm;
