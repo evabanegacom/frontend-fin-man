@@ -39,7 +39,6 @@ const Overview = () => {
       </div>
 
       {/* Plotly Chart */}
-      <BudgetForm />
       <div className="mb-4">
         <Plot data={chartData} layout={{ title: 'Data Behavior Chart' }} />
       </div>

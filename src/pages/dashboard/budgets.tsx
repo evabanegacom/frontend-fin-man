@@ -1,8 +1,12 @@
 import React from 'react'
+import BudgetForm from '../form-modals/budget-form'
 
 const Budgets = () => {
   return (
-    <div>Budgets</div>
+    <div>Budgets
+            <BudgetForm />
+
+    </div>
   )
 }
 
