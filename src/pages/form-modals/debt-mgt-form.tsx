@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import DebtMgtsService from '../../services/debt-mgt';
+import DebtMgtsService from '../../services/debt-mgt-service';
 
 const DebtMgtForm = () => {
   const [saving, setSaving] = useState({
