@@ -10,9 +10,15 @@ const getUserSavings = async () => {
     return response.data;
     }
 
+const createFinancialSaving = async (id: number, data:any) => {
+    const response = await api.post(`/savings/${id}/add_savings_budget`, data)
+    return response.data;
+}
+
 const SavingsService = {
     createSaving,
-    getUserSavings
+    getUserSavings,
+    createFinancialSaving
 }
 
 export default SavingsService;

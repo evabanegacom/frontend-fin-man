@@ -1,6 +1,7 @@
 import {useEffect} from 'react'
 import SavingsForm from '../form-modals/savings-form'
 import SavingsService from '../../services/saving-services'
+import SavingsFinanceForm from '../item-forms/savings-finance-form'
 
 const Savings = () => {
   useEffect(() => {
@@ -17,6 +18,8 @@ const Savings = () => {
   return (
     <div>Savings
       <SavingsForm />
+      <br />
+      <SavingsFinanceForm />
     </div>
   )
 }
