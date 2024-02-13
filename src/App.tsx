@@ -11,6 +11,8 @@ import Savings from './pages/dashboard/savings';
 import DebtMgts from './pages/dashboard/debt-mgts';
 import Incomes from './pages/dashboard/incomes';
 import Expenses from './pages/dashboard/expenses';
+import ActivateAccount from './containers/activate-account';
+import SignUp from './containers/sign-up';
 
 const Combined = () => {
   return (<>
@@ -37,6 +39,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Combined />} />
+
         <Route path='/dashboard' element={<Dashboard />}>
           <Route path='/dashboard/budgets' element={<Budgets />} />
           <Route path='/dashboard/savings' element={<Savings />} />
@@ -45,6 +48,9 @@ function App() {
           <Route path='/dashboard/expenses' element={<Expenses />} />
           <Route path='/dashboard/overview' element={<Overview />} />
         </Route>
+       
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/activate/:token' element={<ActivateAccount />} />
         <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
     </BrowserRouter>
