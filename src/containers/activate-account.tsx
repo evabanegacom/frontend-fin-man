@@ -1,15 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import axios from 'axios';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ActivateAccount = () => {
-  const { token } = useParams();
+  const searchParams = new URLSearchParams(window.location.search);
+  const token = searchParams.get('token');
 
-  // Now you can use the token variable to perform activation logic
+  console.log({token})
+  // <a href="https://fin-man.fly.dev/api/v1/activate/<%= user.activation_token %>">Activate Account</a>
+
+  const activateAccount = async () => {
+    const response:any = await axios.get(`https://fin-man.fly.dev/api/v1/activate/${token}`);
+    if (response) {
+      toast.success('Account activated successfully');
+
+    } else {
+      toast.error('Failed to activate account');
+    }
+  }
+
+
+  useEffect(() => {
+    activateAccount();
+  }, []);
 
   return (
     <div>
-      <h1>Activate Account</h1>
-      <p>Activation token: {token}</p>
+      <ToastContainer />
+      <h1 style={{ color: "#fff"}}>Activate Account</h1>
+      <p style={{ color: "#fff"}}>Activation token: {token}</p>
       {/* You can perform activation logic here */}
     </div>
   );

@@ -13,6 +13,9 @@ import Incomes from './pages/dashboard/incomes';
 import Expenses from './pages/dashboard/expenses';
 import ActivateAccount from './containers/activate-account';
 import SignUp from './containers/sign-up';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Login from './containers/login';
 
 const Combined = () => {
   return (<>
@@ -29,6 +32,7 @@ function App() {
 
   return (
    <div className='bg-primary w-full overflow-hidden'>
+          <ToastContainer />
     <div className={`${styles.paddingX} ${styles.flexCenter}`}>
       <div className={`${styles.boxWidth}`}>
         <Navbar />
@@ -50,7 +54,8 @@ function App() {
         </Route>
        
         <Route path='/signup' element={<SignUp />} />
-        <Route path='/activate/:token' element={<ActivateAccount />} />
+        <Route path='/activate' element={<ActivateAccount />} />
+        <Route path='/login' element={<Login />} />
         <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
     </BrowserRouter>
