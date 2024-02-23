@@ -11,11 +11,13 @@ import Savings from './pages/dashboard/savings';
 import DebtMgts from './pages/dashboard/debt-mgts';
 import Incomes from './pages/dashboard/incomes';
 import Expenses from './pages/dashboard/expenses';
-import ActivateAccount from './containers/activate-account';
-import SignUp from './containers/sign-up';
+import ActivateAccount from './auth/activate-account';
+import SignUp from './auth/sign-up';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Login from './containers/login';
+import Login from './auth/login';
+import ForgotPassword from './auth/forgot-password';
+import ResetPassword from './auth/reset-password';
 
 const Combined = () => {
   return (<>
@@ -56,6 +58,8 @@ function App() {
         <Route path='/signup' element={<SignUp />} />
         <Route path='/activate' element={<ActivateAccount />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/forgot-password' element={<ForgotPassword />} />
+        <Route path='/reset-password' element={<ResetPassword />} />
         <Route path='*' element={<h1>Not Found</h1>} />
       </Routes>
     </BrowserRouter>
