@@ -1,6 +1,6 @@
 import { people01, people02, people03, facebook, instagram, linkedin, twitter, airbnb, binance, coinbase, dropbox, send, shield, star  } from "../assets";
 
-export const navLinks = [
+export const signedInLinks = [
   {
     id: "/",
     title: "Home",
@@ -19,9 +19,39 @@ export const navLinks = [
   },
 
   {
-    id: 'signup',
-    title: 'Sign Up'
+    id: 'dashboard/overview',
+    title: 'Dashboard'
   },
+
+  {
+    id: 'logout',
+    title: 'Logout'
+  },
+
+];
+
+export const signedOutLinks = [
+  {
+    id: "/",
+    title: "Home",
+  },
+  {
+    id: "#features",
+    title: "Features",
+  },
+  {
+    id: "#product",
+    title: "Product",
+  },
+  {
+    id: "#clients",
+    title: "Clients",
+  },
+
+  // {
+  //   id: 'signup',
+  //   title: 'Sign Up'
+  // },
 
   {
     id: 'login',
@@ -206,3 +236,8 @@ export const clients = [
     logo: dropbox,
   },
 ];
+
+export const logout = () => {
+  localStorage.clear();
+  window.location.href='/'
+}

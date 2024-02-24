@@ -21,7 +21,6 @@ import ResetPassword from './auth/reset-password';
 import { useSelector } from 'react-redux';
 
 const Combined = () => {
-  const isLoggedin = useSelector((state: any) => state?.reducer?.auth?.isAuth);
   return (
     <>
       <div className={`bg-primary ${styles.flexStart}`}>
