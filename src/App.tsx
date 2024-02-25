@@ -36,6 +36,8 @@ const Combined = () => {
 function App() {
   const isLoggedin = useSelector((state: any) => state?.reducer?.auth?.isAuth);
 
+  const isLoginOrSignUpPage = window.location.pathname === '/login' || window.location.pathname === '/signup';
+
   return (
     <div className='bg-primary w-full overflow-hidden'>
       <ToastContainer />
@@ -72,7 +74,8 @@ function App() {
           <Route path='*' element={<h1>Not Found</h1>} />
         </Routes>
       </BrowserRouter>
-      <Footer />
+      {/* <Footer /> */}
+      {!isLoginOrSignUpPage ? <Footer /> : null}
     </div>
   )
 }

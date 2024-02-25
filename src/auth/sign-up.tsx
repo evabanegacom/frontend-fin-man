@@ -29,7 +29,7 @@ const SignUp = () => {
 
   const handleChange = (e: any) => {
     const { name, value, files } = e.target;
-    setUser((prevUser:any) => ({
+    setUser((prevUser: any) => ({
       ...prevUser,
       [name]: files ? files[0] : value,
     }));
@@ -83,28 +83,32 @@ const SignUp = () => {
             </div>
           </div>
 
-          {/* <div>
-            <label htmlFor="avatar" className="block text-sm font-medium text-gray-700">Image(optional):</label>
-            <input type="file" name="avatar" id="avatar" className="mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" onChange={handleChange} />
-          </div> */}
-
-<div className="relative">
-  <label htmlFor="avatar" className="block text-sm font-medium text-gray-700">Optional:</label>
-  <input ref={fileRef} type="file" name="avatar" id="avatar" className="hidden" onChange={handleChange} />
-  <div className="mt-1 flex items-center whitespace-nowrap">
-    <span onClick={triggerOnChange} className="mr-2 inline-block py-2 px-4 bg-white border border-gray-300 rounded-md shadow-sm text-sm text-gray-700 hover:bg-gray-50 cursor-pointer font-bold">
-      Choose Image
-    </span>
-    {user.avatar ? <span className="text-gray-500 overflow-hidden overflow-ellipsis whitespace-no-wrap">{user.avatar.name}</span> : <span className="text-gray-500">No file chosen</span>}
-  </div>
-</div>
+          <div className="relative">
+            <label htmlFor="avatar" className="block text-sm font-medium text-gray-700">Optional:</label>
+            <input ref={fileRef} type="file" name="avatar" id="avatar" className="hidden" onChange={handleChange} />
+            <div className="mt-1 flex items-center whitespace-nowrap">
+              <span onClick={triggerOnChange} className="mr-2 inline-block py-2 px-4 bg-white border border-gray-300 rounded-md shadow-sm text-sm text-gray-700 hover:bg-gray-50 cursor-pointer font-bold">
+                Choose Image
+              </span>
+              {user.avatar ? <span className="text-gray-500 overflow-hidden overflow-ellipsis whitespace-no-wrap">{user.avatar.name}</span> : <span className="text-gray-500">No file chosen</span>}
+            </div>
+          </div>
 
 
-          <div>
+          <div className='mt-4'>
             <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Sign Up</button>
           </div>
         </form>
+        <div className="text-center flex justify-between mt-4">
+          <p className="text-gray-700 ml-2">
+            ALready have an account?
+          </p>
+          <a href="/login" className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 mr-2">
+            Sign in
+          </a>
+        </div>
       </div>
+
     </div>
   )
 }

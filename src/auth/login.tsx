@@ -35,7 +35,7 @@ const Login = () => {
 
     const forgotPassword = () => navigate('/forgot-password');
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div style={{height: '89.3vh' }} className="flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
                 <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     <div className="mb-4">

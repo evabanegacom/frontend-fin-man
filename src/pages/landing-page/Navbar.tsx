@@ -38,7 +38,8 @@ const Navbar = () => {
             <a href={`${nav.id}`}>{nav.title}</a>
           </li>
         ))}
-      </ul>}
+      </ul>
+      }
 
       <div className="sm:hidden flex flex-1 justify-end items-center">
         <img
@@ -53,6 +54,7 @@ const Navbar = () => {
             !toggle ? "hidden" : "flex"
           } p-6 bg-black-gradient absolute top-20 right-0 mx-4 my-2 min-w-[140px] rounded-xl sidebar`}
         >
+          {isLoggedin ? 
           <ul className="list-none flex justify-end items-start flex-1 flex-col">
             {signedInLinks.map((nav, index) => (
               <li
@@ -62,10 +64,26 @@ const Navbar = () => {
                 } ${index === signedInLinks.length - 1 ? "mb-0" : "mb-4"}`}
                 onClick={() => setActive(nav.title)}
               >
-                <a href={`#${nav.id}`}>{nav.title}</a>
+                {/* <a href={`#${nav.id}`}>{nav.title}</a> */}
+                {nav?.title === 'Logout' ? <button onClick={logout}>logout</button> : <a href={`${nav.id}`}>{nav.title}</a>}
               </li>
             ))}
           </ul>
+          :
+          <ul className="list-none flex justify-end items-start flex-1 flex-col">
+          {signedOutLinks.map((nav, index) => (
+            <li
+              key={nav.id}
+              className={`font-poppins font-medium cursor-pointer text-[16px] ${
+                active === nav.title ? "text-white" : "text-dimWhite"
+              } ${index === signedInLinks.length - 1 ? "mb-0" : "mb-4"}`}
+              onClick={() => setActive(nav.title)}
+            >
+              <a href={`${nav.id}`}>{nav.title}</a>
+            </li>
+          ))}
+        </ul>
+              }
         </div>
       </div>
     </nav>
