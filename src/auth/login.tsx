@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import AuthService from '../services/auth-service';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../constants/Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const userData = useSelector((state: any) => state?.reducer?.auth);
+    const [ loading, setLoading] = useState(false)
     const navigate = useNavigate();
-    console.log(userData);
     const [user, setUser] = useState({
         email: '',
         password: '',
@@ -22,19 +25,27 @@ const Login = () => {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
+        setLoading(true)
         localStorage.clear();
         try {
             const response = await AuthService.login(user);
+            console.log(response?.data?.error)
             localStorage.setItem('user', JSON.stringify(response.jwt_token));
             // Handle success, redirect, or perform additional actions
-        } catch (error) {
+            setLoading(false)
+            window.location.href='/dashboard/overview'
+        } catch (error:any) {
             // Handle error
+            toast.error('Invalid credentials')
             console.error('Error logging in:', error);
+            setLoading(false)
         }
     };
 
     const forgotPassword = () => navigate('/forgot-password');
     return (
+        <>
+        <ToastContainer />
         <div style={{height: '89.3vh' }} className="flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-md w-full space-y-8">
                 <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -52,7 +63,7 @@ const Login = () => {
                     </div>
                     <div className="flex items-center justify-between">
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                            Login
+                            {loading ? <Loader /> : 'Sign In'}
                         </button>
                         <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/forgot-password">
                             Forgot Password?
@@ -70,7 +81,7 @@ const Login = () => {
 
             </div>
         </div>
-
+    </>
     )
 }
 
