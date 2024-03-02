@@ -20,7 +20,7 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen}: Props) => {
     const debtActions = [
         {
           id: 1,
-          name: 'Rider overview',
+          name: 'Debt overview',
           action: () => console.log('Rider overview'),
           color: '#7975B6',
           icon: <TbTrash        color='#7975B6' />,
