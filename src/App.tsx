@@ -8,7 +8,7 @@ import Dashboard from './pages/dashboard/dashboard';
 import Overview from './pages/dashboard/overview';
 import Budgets from './pages/dashboard/budgets';
 import Savings from './pages/dashboard/savings';
-import DebtMgts from './pages/dashboard/debt-mgts';
+import DebtMgts from './pages/dashboard/debt-mgt/debt-mgts';
 import Incomes from './pages/dashboard/incomes';
 import Expenses from './pages/dashboard/expenses';
 import ActivateAccount from './auth/activate-account';

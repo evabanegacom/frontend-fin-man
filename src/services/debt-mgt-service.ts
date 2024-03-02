@@ -20,11 +20,18 @@ const upcomingDebts = async (id:number) => {
     return response.data;
     }
 
+const getDebtByUser = async (userId:number, pageNumber:number) => {
+    //http://localhost:3001/budgets?user_id=your_user_id&page=1
+    const response = await api.get(`/debt_mgts?user_id=${userId}&page=${pageNumber}`)
+    return response.data;
+}
+
 const DebtMgtsService = {
     createDebtMgt,
     getUserDebts,
     createDebtPayment,
-    upcomingDebts
+    upcomingDebts,
+    getDebtByUser
 }
 
 export default DebtMgtsService;

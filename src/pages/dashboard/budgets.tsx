@@ -5,6 +5,7 @@ import BudgetService from '../../services/budget-service';
 
 const Budgets = () => {
   const [budgets, setBudgets] = useState([])
+
   const getUpcomingBudgets = async () => {
     const response = await BudgetService.upcomingBudgets(1)
     setBudgets(response.data)
@@ -18,7 +19,6 @@ const Budgets = () => {
             <BudgetForm />
             <br />
             <BudgetExpenseForm />
-
     </div>
   )
 }

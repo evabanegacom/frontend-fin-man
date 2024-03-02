@@ -1,0 +1,68 @@
+.debt-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #dfddf6;
+    margin-top: 20px;
+  }
+  
+  .debt-table th {
+    background-color: rgba(113, 82, 243, 0.05) !important;
+    padding: 16px 8px;
+    text-align: left;
+    font-size: 14px;
+    line-height: 18px;
+    color: #3d4c5e;
+    border-radius: 4px 4px 0px 0px;
+  }
+  
+  .debt-table td {
+    /* border-bottom: 1px solid #dadada; */
+    padding: 8px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  
+  .debt-content-body {
+    box-shadow: 0 5px 10px 0 rgba(92, 92, 100, 0.25);
+    border-radius: 10px;
+    background: #fff;
+    padding: 10px;
+    position: absolute;
+    top: -50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 1000;
+    width: fit-content;
+    white-space: nowrap;
+    /* margin-top: auto; */
+    /* margin-right: 50px; */
+    right: 0;
+    /* margin-bottom: 50px; */
+  }  
+
+.debt-action-div {
+  display: flex;
+  flex-direction: column;
+    align-items: flex-start;
+    border-radius: 10px;
+    background: #fff;
+    padding: 0.5rem;
+    float: right;
+}
+
+.debt-action-div > :nth-child(2),
+.debt-action-div > :nth-child(3) {
+  margin-top: 1rem;
+}
+.debt-action-div button {
+  background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 700;
+}

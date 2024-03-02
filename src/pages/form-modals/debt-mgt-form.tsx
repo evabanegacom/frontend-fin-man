@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import DebtMgtsService from '../../services/debt-mgt-service';
+import { useSelector } from 'react-redux';
 
 const DebtMgtForm = () => {
+  const user_id = useSelector((state: any) => state?.reducer?.auth?.user?.id);
   const [saving, setSaving] = useState({
     name: '',
     purpose: '',
@@ -10,7 +12,7 @@ const DebtMgtForm = () => {
     target_date: '',
     contribution_type: '',
     contribution_amount: '',
-    user_id: 1,
+    user_id: user_id,
     avatar: null,
   });
 
@@ -80,15 +82,13 @@ const DebtMgtForm = () => {
             <input type="number" name="contribution_amount" value={saving.contribution_amount} onChange={handleChange} />
         </label>
 
-      {/* Add other form fields as needed */}
-
       <label>
         Avatar:
         <input type="file" name="avatar" onChange={handleChange} />
       </label>
 
       <button type="submit">Submit</button>
-    </form>
+</form>
   );
 };
 

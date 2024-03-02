@@ -17,10 +17,8 @@ const userData = localStorage.getItem('user');
 
 if(userData) {
     const parsedData = JSON.parse(userData);
-    const decodedToken: any = jwtDecode(parsedData);
-    console.log(decodedToken);
-    
-    const expiresAt = new Date(decodedToken.exp * 1000);
+    const decodedToken: any = jwtDecode(parsedData);    
+    const expiresAt = decodedToken && new Date(decodedToken?.exp * 1000);
     if(new Date() > expiresAt) {
         localStorage.removeItem('user');
     } else {
