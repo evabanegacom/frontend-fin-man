@@ -15,10 +15,10 @@ const DebtPaymentForm = ({ isOpen, setIsOpen, selectedDebt}: Props) => {
         debt_mgt_id: selectedDebt?.id
     })
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = async (e: any) => {
         e.preventDefault()
         console.log(debtPayment)
-        const response = DebtMgtsService.createDebtPayment(debtPayment?.debt_mgt_id, debtPayment)
+        const response = await DebtMgtsService.createDebtPayment(debtPayment?.debt_mgt_id, debtPayment)
         console.log(response)
     }
 

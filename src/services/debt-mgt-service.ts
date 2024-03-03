@@ -16,7 +16,7 @@ const createDebtPayment = async (id: number, data:any) => {
 }
 
 const upcomingDebts = async (id:number) => {
-    const response = await api.get(`/debt_mgts/${id}/upcoming_debt_payment`)
+    const response = await api.get(`/debt_mgts/${id}/upcoming_debt_payment?id=${id}`)
     return response.data;
     }
 
@@ -26,12 +26,18 @@ const getDebtByUser = async (userId:number, pageNumber:number) => {
     return response.data;
 }
 
+const deleteDebt = async (id:number) => {
+    const response = await api.delete(`/debt_mgts/delete_debtmgt?id=${id}`)
+    return response.data;
+}
+
 const DebtMgtsService = {
     createDebtMgt,
     getUserDebts,
     createDebtPayment,
     upcomingDebts,
-    getDebtByUser
+    getDebtByUser,
+    deleteDebt
 }
 
 export default DebtMgtsService;

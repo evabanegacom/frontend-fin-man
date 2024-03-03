@@ -35,7 +35,6 @@ const DebtMgts = () => {
     getUserDebts()
   }, [])
 
-  console.log(userDebts)
   return (
     <div>
       <h1>DebtMgts</h1>

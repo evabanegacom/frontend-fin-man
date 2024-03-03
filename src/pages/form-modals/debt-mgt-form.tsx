@@ -16,7 +16,7 @@ const DebtMgtForm = () => {
     avatar: null,
   });
 
-  const handleChange = (e:any) => {
+  const handleChange = (e: any) => {
     const { name, value, files } = e.target;
     setSaving((prevSaving) => ({
       ...prevSaving,
@@ -24,7 +24,7 @@ const DebtMgtForm = () => {
     }));
   };
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     const formData = new FormData();
     Object.entries(saving).forEach(([key, value]) => {
@@ -40,47 +40,49 @@ const DebtMgtForm = () => {
   };
 
   return (
-<form onSubmit={handleSubmit} className="flex flex-col">
+    <form onSubmit={handleSubmit} className="flex flex-col">
+      <label className="block text-gray-700 text-sm font-bold mb-2">
+        Name:
+      </label>
+      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="name" onChange={handleChange} placeholder="Enter your name" />
+
+
+      <label className="block text-gray-700 text-sm font-bold mb-2">
+        Purpose:
+      </label>
+      <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="purpose" onChange={handleChange} placeholder="Purpose"></textarea>
+
+
+      <label className="block text-gray-700 text-sm font-bold mb-2">
+        Target amount:
+      </label>
+      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="target_amount" onChange={handleChange} placeholder="Enter debt amount" />
+
+      <select name='category' onChange={handleChange} value={saving?.category}>
+        <option value="category">category</option>
+        <option value="vacation">vacation</option>
+        <option value="car">car</option>
+        <option value="house">house</option>
+        <option value="education">education</option>
+        <option value="other">other</option>
+      </select>
+
       <label>
-        name:
-        <input type="text" name="name" value={saving.name} onChange={handleChange} />
+        target_date:
+        <input type="date" name="target_date" required onChange={handleChange} />
       </label>
 
-      <label>
-        purpose:
-        <textarea name="purpose" value={saving.purpose} onChange={handleChange} />
-      </label>
+      <select onChange={handleChange} name='contribution_type' value={saving?.contribution_type}>
+        <option value="contribution_type">contribution_type</option>
+        <option value="weekly">weekly</option>
+        <option value="monthly">monthly</option>
+        <option value="yearly">yearly</option>
+      </select>
 
       <label>
-        target_amount:
-        <input type="number" name="target_amount" value={saving.target_amount} onChange={handleChange} />
+        contribution_amount:
+        <input type="number" name="contribution_amount" required onChange={handleChange} />
       </label>
-
-        <select name='category' onChange={handleChange} value={saving?.category}>
-                <option value="category">category</option>
-                <option value="vacation">vacation</option>
-                <option value="car">car</option>
-                <option value="house">house</option>
-                <option value="education">education</option>
-                <option value="other">other</option>
-        </select>
-
-        <label>
-            target_date:
-            <input type="date" name="target_date" value={saving.target_date} onChange={handleChange} />
-        </label>
-
-       <select onChange={handleChange} name='contribution_type' value={saving?.contribution_type}>
-              <option value="contribution_type">contribution_type</option>
-              <option value="weekly">weekly</option>
-              <option value="monthly">monthly</option>
-              <option value="yearly">yearly</option>
-       </select>
-
-        <label>
-            contribution_amount:
-            <input type="number" name="contribution_amount" value={saving.contribution_amount} onChange={handleChange} />
-        </label>
 
       <label>
         Avatar:
@@ -88,7 +90,7 @@ const DebtMgtForm = () => {
       </label>
 
       <button type="submit">Submit</button>
-</form>
+    </form>
   );
 };
 

@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { TbTrash } from "react-icons/tb";
 import { CiEdit } from 'react-icons/ci';
+import { HiOutlineEye } from 'react-icons/hi';
+import DebtMgtsService from '../../../services/debt-mgt-service';
+import { IoIosAddCircle } from "react-icons/io";
 import DebtPaymentForm from '../../item-forms/debt-payment-form';
+import DebtOverview from './debt-overview';
 
 interface Props {
   isOpen: boolean;
@@ -11,11 +15,12 @@ interface Props {
 const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen}: Props) => {
     const ref:any = useRef(null);
     const [openDebtPayment, setOpenDebtPayment] = useState(false);
-    const [openReassignAxis, setReassignAxis] = useState(false);
+    const [openDebtOverview, setDebtOverview] = useState(false);
     const [openEditAccountNumber, setEditAccountNumber] = useState(false);
     
-    const deactivateRider = () => {
-      console.log('deactivate rider')
+    const deactivateRider = async() => {
+      const response = await DebtMgtsService.deleteDebt(selectedDebt?.id)
+      console.log(response)
     }
     const debtActions = [
         {
@@ -23,10 +28,10 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen}: Props) => {
           name: 'Debt overview',
           action: () => console.log('Rider overview'),
           color: '#7975B6',
-          icon: <TbTrash        color='#7975B6' />,
+          icon: <HiOutlineEye color='#7975B6' />,
           // modal: <RiderOverview isOpen={openRiderOverView} setIsOpen={setRiderOverView}/>,
           onClick: () => {
-            console.log('Rider overview')
+            setDebtOverview(true)
           }
         },
         // {
@@ -42,9 +47,10 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen}: Props) => {
         // },
         {
           id: 3,
+
           name: 'Record debt payment',
           action: () => console.log('edit account number'),
-          icon: <CiEdit color='#C8CC66' />,
+          icon: <IoIosAddCircle color='#C8CC66' />,
           color: '#C8CC66',
           // modal: <EditAccountNumber isOpen={openEditAccountNumber} setIsOpen={setEditAccountNumber} />,
           onClick: () => {
@@ -70,7 +76,7 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen}: Props) => {
             !event.target.closest('.modal-container') // Check if click is inside any modal
           ) {
             // Check if any modal is open, if yes, prevent closing
-            if (!openDebtPayment && !openReassignAxis && !openEditAccountNumber) {
+            if (!openDebtPayment && !openDebtOverview && !openEditAccountNumber) {
               setIsOpen(false);
             }
           }
@@ -80,7 +86,7 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen}: Props) => {
         return () => {
           document.removeEventListener("mousedown", handleClickOutside);
         };
-      }, [ref, setIsOpen, openDebtPayment, openReassignAxis, openEditAccountNumber]);  
+      }, [ref, setIsOpen, openDebtPayment, openDebtOverview, openEditAccountNumber]);  
 
       if (!isOpen) return null
 
@@ -99,6 +105,7 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen}: Props) => {
           </div>
         </div>
         <DebtPaymentForm isOpen={openDebtPayment} setIsOpen={setOpenDebtPayment} selectedDebt={selectedDebt} />
+        <DebtOverview isOpen={openDebtOverview} setIsOpen={setDebtOverview} selectedDebt={selectedDebt} />
       {/* <RiderOverview isOpen={openRiderOverView} setIsOpen={setRiderOverView} selectedRider={selectedRider} /> */}
       {/* <ReassignAxis isOpen={openReassignAxis} setIsOpen={setReassignAxis} selectedRider={selectedRider} /> */}
       {/* <EditAccountNumber isOpen={openEditAccountNumber} setIsOpen={setEditAccountNumber} selectedRider={selectedRider} /> */}
