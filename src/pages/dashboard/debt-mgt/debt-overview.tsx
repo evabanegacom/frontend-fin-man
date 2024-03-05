@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { FaTimes } from 'react-icons/fa';
 import { PiProhibitBold } from 'react-icons/pi';
 import DebtMgtsService from '../../../services/debt-mgt-service';
+import GeneralOverview from './general-overview/general-overview';
+import PaymentHistory from './payment-history/payment-history';
 
 interface Props {
   isOpen: boolean;
@@ -10,10 +12,11 @@ interface Props {
 }
 
 const DebtOverview = ({ isOpen, setIsOpen, selectedDebt }: Props) => {
-  const [ debtPayment, setDebtPayment ] = useState()
+  const [ debtPayment, setDebtPayment ] = useState<any>({})
+  const [ toggleButton, setToggleButton] = useState('General information')
+
   const upcomingDebtPayment = async () => {
     const response = await DebtMgtsService.upcomingDebts(selectedDebt?.id)
-    console.log(response)
     setDebtPayment(response)
   }
 
@@ -42,11 +45,10 @@ const DebtOverview = ({ isOpen, setIsOpen, selectedDebt }: Props) => {
     return formattedAmount;
   }
 
-  const deactivateRider = () => {
-    console.log('Rider has been suspended', 'success')
+  const deleteDebt = async() => {
+    const response = await DebtMgtsService.deleteDebt(selectedDebt?.id)
+    console.log(response)
   }
-
-  console.log(selectedDebt)
 
   if (!isOpen) return null
 
@@ -74,48 +76,24 @@ const DebtOverview = ({ isOpen, setIsOpen, selectedDebt }: Props) => {
             <div className='rider-earning'><span className='rider-earning-text'>Payment made:</span>
               <span className='rider-earned-amount'>{formatAmountAsNaira(debtPayment?.total_payment)}</span>
             </div>
-            {selectedDebt?.is_active ?
+
+            <div className='rider-earning'><span className='rider-earning-text'>Payment Remaining:</span>
+              <span className='rider-earned-amount'>{formatAmountAsNaira(debtPayment?.upcoming_payment)}</span>
+            </div>
+            
               <div className='suspend'>
-                <button onClick={deactivateRider}><PiProhibitBold color='#D95069' /><span style={{ color: '#D95069' }}>Suspend</span></button>
+                <button onClick={deleteDebt}><PiProhibitBold color='#D95069' /><span style={{ color: '#D95069' }}>Delete</span></button>
                 {/* <button onClick={deactivateRider}><FaTimes /> <span style={{ color: '#050505'}}>Deactivate</span></button> */}
               </div>
-              : null}
+              
 
-            <div className='rider-information-container'>
+<div className='rider-information'>
+           <button onClick={() => setToggleButton('General information')} style={{ borderBottom: toggleButton==='General information' ? '2px solid #444266' : ''}}>General information</button>
+           <button onClick={() => setToggleButton('payment history')} style={{ borderBottom: toggleButton==='payment history' ? '2px solid #444266' : ''}}>Rider history ({selectedDebt?.length})</button>
+          </div>
+          {toggleButton === 'General information' ? <GeneralOverview selectedDebt={selectedDebt}/> : <PaymentHistory selectedDebt={selectedDebt} />}
 
-              <div className='rider-information-details'>
-                <div className='information-heading'><b className='ml-1'>Rider Information</b></div>
-                <div className='rider-data ml-1'>
-                  <div>Full Name: <b>{selectedDebt?.first_name} {" "} {selectedDebt?.last_name}</b></div>
-                  <div>Mobile number: <strong>{selectedDebt?.mobile}</strong></div>
-                </div>
-                <div className='ml-1'>email: <b>{selectedDebt?.email}</b></div>
-              </div>
-
-              <div>
-                <div className='information-heading'><b className='ml-1'>Delivery axis</b></div>
-                {/* <div className='rider-data ml-1'><b>{findEstate(selectedDebt?.estateID)}</b></div> */}
-              </div>
-
-              <div>
-                <div className='information-heading'><b className='ml-1'>Account information</b></div>
-                <div className='ml-1 mt-2'><strong>{selectedDebt?.rider_details?.bank_accounts[0]?.bank_name || 'No data'}</strong></div>
-                <div className='ml-1'><strong>{selectedDebt?.rider_details?.bank_accounts[0]?.account_number || 'No data'}</strong></div>
-                <div className='ml-1'><strong>{selectedDebt?.rider_details?.bank_accounts[0]?.account_name || 'No data'}</strong></div>
-              </div>
-
-              <div>
-                <div className='information-heading'><b className='ml-1'>Vehicle type</b></div>
-                <div className='mt-2 ml-1'><b>{selectedDebt?.rider_details?.vehicle_type}</b></div>
-              </div>
-
-              <div>
-                <div className='information-heading'><b className='ml-1'>Number of deliveries</b></div>
-                <div className='mt-2 ml-1'><b>{selectedDebt?.wallet?.transactions.filter((transaction: any) => transaction?.status === 'completed').length}</b></div>
-              </div>
-
-            </div>
-
+           
           </div>
         </div>
       </div>

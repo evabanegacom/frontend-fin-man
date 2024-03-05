@@ -35,6 +35,7 @@ const DebtMgts = () => {
     getUserDebts()
   }, [])
 
+  const tableHeader = [ 'Avatar', 'Name', 'Purpose', 'Target Amount', 'Contribution Type', 'Contribution Amount', 'Target Date', 'Completed', 'Action']
   return (
     <div>
       <h1>DebtMgts</h1>
@@ -44,15 +45,9 @@ const DebtMgts = () => {
         <thead>
           <tr>
             {/* <th className="px-4 py-2">ID</th> */}
-            <th className="px-4 py-2">Avatar</th>
-            <th className="px-4 py-2">Name</th>
-            <th className="px-4 py-2">Purpose</th>
-            <th className="px-4 py-2">Target Amount</th>
-            <th className="px-4 py-2">Contribution Type</th>
-            <th className="px-4 py-2">Contribution Amount</th>
-            <th className="px-4 py-2">Target Date</th>
-            <th className="px-4 py-2">Completed</th>
-            <th className="px-4 py-2">Action</th>
+            {tableHeader.map((header, index) => (
+              <th key={index} className="border-b-2 border-sky-500 px-4 py-2">{header}</th>
+            ))}
           </tr>
         </thead>
         <tbody>

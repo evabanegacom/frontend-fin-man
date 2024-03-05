@@ -68,9 +68,9 @@
 }
 
 .fleet-overview-container {
-  max-width: 500px;
-  min-width: 500px;
-  min-height: 90vh;
+  max-width: 550px;
+  min-width: 550px;
+  min-height: 80vh;
   max-height: 80vh;
   /* overflow-y: auto; */
 }

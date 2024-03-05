@@ -18,7 +18,7 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen}: Props) => {
     const [openDebtOverview, setDebtOverview] = useState(false);
     const [openEditAccountNumber, setEditAccountNumber] = useState(false);
     
-    const deactivateRider = async() => {
+    const deleteDebt = async() => {
       const response = await DebtMgtsService.deleteDebt(selectedDebt?.id)
       console.log(response)
     }
@@ -63,7 +63,7 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen}: Props) => {
           action: () => console.log('deactivate account number'),
           icon: <TbTrash color='#F00' />,
           color: '#F00',
-          onClick: deactivateRider
+          onClick: deleteDebt
         }
       ]
 

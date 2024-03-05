@@ -31,13 +31,19 @@ const deleteDebt = async (id:number) => {
     return response.data;
 }
 
+const debtPayments = async (id:number) => {
+    const response = await api.get(`/debt_mgts/debt_payments?id=${id}`)
+    return response.data;
+}
+
 const DebtMgtsService = {
     createDebtMgt,
     getUserDebts,
     createDebtPayment,
     upcomingDebts,
     getDebtByUser,
-    deleteDebt
+    deleteDebt,
+    debtPayments
 }
 
 export default DebtMgtsService;
