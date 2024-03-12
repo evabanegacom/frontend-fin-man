@@ -1,24 +1,25 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import './App.css'
 import Welcome from './pages/Welcome'
 import { Navbar, Hero, Footer } from './pages/landing-page'
 import styles from './pages/style'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Dashboard from './pages/dashboard/dashboard';
-import Overview from './pages/dashboard/overview';
-import Budgets from './pages/dashboard/budgets';
-import Savings from './pages/dashboard/savings';
-import DebtMgts from './pages/dashboard/debt-mgt/debt-mgts';
-import Incomes from './pages/dashboard/incomes';
-import Expenses from './pages/dashboard/expenses';
-import ActivateAccount from './auth/activate-account';
-import SignUp from './auth/sign-up';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Login from './auth/login';
-import ForgotPassword from './auth/forgot-password';
-import ResetPassword from './auth/reset-password';
 import { useSelector } from 'react-redux';
+import ErrorBoundary from './components/error-boundary';
+
+const Overview = lazy(() => import('./pages/dashboard/overview'));
+const Budgets = lazy(() => import('./pages/dashboard/budgets'));
+const Savings = lazy(() => import('./pages/dashboard/savings'));
+const DebtMgts = lazy(() => import('./pages/dashboard/debt-mgt/debt-mgts'));
+const Incomes = lazy(() => import('./pages/dashboard/incomes'));
+const Expenses = lazy(() => import('./pages/dashboard/expenses'));
+const ActivateAccount = lazy(() => import('./auth/activate-account'));
+const SignUp = lazy(() => import('./auth/sign-up'));
+const Login = lazy(() => import('./auth/login'));
+const ForgotPassword = lazy(() => import('./auth/forgot-password'));
+const ResetPassword = lazy(() => import('./auth/reset-password'));
 
 const Combined = () => {
   return (
@@ -35,48 +36,56 @@ const Combined = () => {
 
 function App() {
   const isLoggedin = useSelector((state: any) => state?.reducer?.auth?.isAuth);
+  const Dashboard = lazy(() => import('./pages/dashboard/dashboard'));
 
   const isLoginOrSignUpPage = window.location.pathname === '/login' || window.location.pathname === '/signup';
 
   return (
-    <div className='bg-primary w-full overflow-hidden'>
-      <ToastContainer />
-      <div className={`${styles.paddingX} ${styles.flexCenter}`}>
-        <div className={`${styles.boxWidth}`}>
-          <Navbar />
+    <ErrorBoundary fallback={<div>Something went wrong</div>}>
+      <div className='bg-primary w-full overflow-hidden'>
+        <ToastContainer />
+        <div className={`${styles.paddingX} ${styles.flexCenter}`}>
+          <div className={`${styles.boxWidth}`}>
+            <Navbar />
+          </div>
         </div>
-      </div>
 
-      <BrowserRouter>
-        <Routes>
-          <Route path='/' element={<Combined />} />
-          {!isLoggedin && (
-            <>
-              <Route path='/signup' element={<SignUp />} />
-              <Route path='/login' element={<Login />} />
-            </>
-          )}
-          {isLoggedin && (
-            <>
-              <Route path='/dashboard' element={<Dashboard />}>
-                <Route path='/dashboard/budgets' element={<Budgets />} />
-                <Route path='/dashboard/savings' element={<Savings />} />
-                <Route path='/dashboard/debt-mgts' element={<DebtMgts />} />
-                <Route path='/dashboard/incomes' element={<Incomes />} />
-                <Route path='/dashboard/expenses' element={<Expenses />} />
-                <Route path='/dashboard/overview' element={<Overview />} />
-              </Route>
-              <Route path='/activate' element={<ActivateAccount />} />
-              <Route path='/forgot-password' element={<ForgotPassword />} />
-              <Route path='/reset-password' element={<ResetPassword />} />
-            </>
-          )}
-          <Route path='*' element={<h1>Not Found</h1>} />
-        </Routes>
-      </BrowserRouter>
-      {/* <Footer /> */}
-      {!isLoginOrSignUpPage ? <Footer /> : null}
-    </div>
+        <BrowserRouter>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+
+              <Route path='/' element={<Combined />} />
+              {!isLoggedin && (
+                <>
+                  <Route path='/signup' element={<SignUp />} />
+                  <Route path='/login' element={<Login />} />
+                </>
+              )}
+              {isLoggedin && (
+                <>
+                  <Route path='/dashboard' element={<Dashboard />}>
+                    <Route path='/dashboard/budgets' element={<Budgets />} />
+                    <Route path='/dashboard/savings' element={<Savings />} />
+                    <Route path='/dashboard/debt-mgts' element={<DebtMgts />} />
+                    <Route path='/dashboard/incomes' element={<Incomes />} />
+                    <Route path='/dashboard/expenses' element={<Expenses />} />
+                    <Route path='/dashboard/overview' element={<Overview />} />
+
+                  </Route>
+                  <Route path='/activate' element={<ActivateAccount />} />
+                  <Route path='/forgot-password' element={<ForgotPassword />} />
+                  <Route path='/reset-password' element={<ResetPassword />} />
+                </>
+              )}
+              <Route path='*' element={<h1>Not Found</h1>} />
+            </Routes>
+          </Suspense>
+
+        </BrowserRouter>
+        {/* <Footer /> */}
+        {!isLoginOrSignUpPage ? <Footer /> : null}
+      </div>
+    </ErrorBoundary>
   )
 }
 

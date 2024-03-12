@@ -1,0 +1,44 @@
+.asidebar {
+    width: 10%; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border: 1px solid yellow;
+    overflow-y: auto;
+    transition: 0.5s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.sidebar-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .asidebarhidden {
+    display: none;
+  }
+
+    .asidebar.isactive {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid red;
+        width: 20%;
+        color: #fff;
+        position: absolute;
+        z-index: 1000;
+        height: 100%;
+        top: 10;
+        left: 0;
+        overflow-y: auto;
+        transition: 0.5s;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+}

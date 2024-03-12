@@ -11,15 +11,18 @@ interface authProps {
     user: userDataProps | null;
 }
 
-let initialState:authProps;
+let initialState: authProps = {
+    isAuth: false,
+    user: null
+};
 
 const userData = localStorage.getItem('user');
 
-if(userData) {
+if (userData) {
     const parsedData = JSON.parse(userData);
-    const decodedToken: any = jwtDecode(parsedData);    
+    const decodedToken: any = jwtDecode(parsedData);
     const expiresAt = decodedToken && new Date(decodedToken?.exp * 1000);
-    if(new Date() > expiresAt) {
+    if (new Date() > expiresAt) {
         localStorage.removeItem('user');
     } else {
         initialState = {
@@ -29,17 +32,16 @@ if(userData) {
                 email: decodedToken?.email,
                 name: decodedToken?.name
             }
-        }
-    }
-} else {
-    initialState = {
-        isAuth: false,
-        user: null
+        };
     }
 }
 
-const authReducer = (state=initialState) => {
-    return state;
-}
+const authReducer = (state = initialState, action: any) => {
+    switch (action.type) {
+        // handle actions if needed
+        default:
+            return state;
+    }
+};
 
 export default authReducer;

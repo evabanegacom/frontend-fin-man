@@ -1,30 +1,48 @@
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import { MdKeyboardArrowLeft } from 'react-icons/md';
-import routes from './routes';
+import { MdKeyboardArrowLeft, MdMenu } from 'react-icons/md';
 import Sidebar from "./sidebar";
+import './dashboard.css';
 
-export default function Dashboard() {
+function Dashboard() {
   const [isCollapsed, setCollapsed] = useState(false);
 
   const toggleCollapse = () => {
     setCollapsed(!isCollapsed);
   };
 
+  const toggleCollapseMobile = () => {
+    if (isCollapsed && window.innerWidth < 768) {
+      setCollapsed(false); // Always expand when the menu icon is clicked on small screens
+    } else {
+      setCollapsed(!isCollapsed); // Toggle collapse/expand for larger screens
+    }
+
+    const sidebar = document.querySelector('.asidebar');
+    sidebar?.classList.toggle('isactive');
+  };
+
   return (
     <div className={`min-h-screen flex`}>
-      <aside className={`sidebar bg-primary text-white w-${isCollapsed ? '16' : '1/3'} transition-all duration-300 ease-in-out overflow-hidden`}>
+      <aside className={`asidebar bg-primary text-white overflow-hidden`}>
         <div className="p-4">
           <div className={`${isCollapsed ? 'text-sm' : 'text-xl'} font-bold mb-4`}>FICJS ON</div>
-          <div className="toggle-btn cursor-pointer" onClick={toggleCollapse}>
+          <div className="toggle-btn cursor-pointer" onClick={toggleCollapseMobile}>
             <MdKeyboardArrowLeft className="text-secondary" size={20}/>
           </div>
         </div>
-        <Sidebar isCollapsed={isCollapsed} setCollapsed={setCollapsed}/>
+        <Sidebar isCollapsed={isCollapsed} setCollapsed={setCollapsed} toggleCollapseMobile={toggleCollapseMobile}/>
       </aside>
-      <main className={`flex-1 p-2 ${isCollapsed ? 'main-collapsed' : ''} bg-gray-100`}>
+      <main className={`flex-1 p-2 bg-gray-100`}>
+        <div className="md:hidden">
+          <button className="text-white p-2" onClick={toggleCollapseMobile}>
+            <MdMenu size={24} />
+          </button>
+        </div>
         <Outlet />
       </main>
     </div>
   );
 }
+
+export default Dashboard
