@@ -2,7 +2,6 @@
     width: 10%; 
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    border: 1px solid yellow;
     overflow-y: auto;
     transition: 0.5s;
     display: flex;
@@ -19,16 +18,27 @@
   width: 100%;
 }
 
+.toggle-btn {
+  display: none;
+}
+
 @media screen and (max-width: 768px) {
-  .asidebarhidden {
+  .asidebar {
     display: none;
+  }
+
+  .desktop-text {
+    display: none;
+  }
+
+  .toggle-btn {
+    display: block;
   }
 
     .asidebar.isactive {
         display: flex;
         flex-direction: column;
         align-items: center;
-        border: 1px solid red;
         width: 20%;
         color: #fff;
         position: absolute;

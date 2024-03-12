@@ -13,9 +13,9 @@ function Dashboard() {
 
   const toggleCollapseMobile = () => {
     if (isCollapsed && window.innerWidth < 768) {
-      setCollapsed(false); // Always expand when the menu icon is clicked on small screens
+      setCollapsed(false);
     } else {
-      setCollapsed(!isCollapsed); // Toggle collapse/expand for larger screens
+      setCollapsed(!isCollapsed);
     }
 
     const sidebar = document.querySelector('.asidebar');

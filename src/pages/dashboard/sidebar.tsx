@@ -20,7 +20,7 @@ const Sidebar = ({ isCollapsed, setCollapsed, toggleCollapseMobile }: Props) => 
           <li className='m-2' key={title} style={{ marginTop: '20px', display: 'flex', justifyContent: 'center'}}>
             <NavLink to={href} onClick={toggleCollapse} className='sidebar-links'>
               {icon && <div className={`d-flex align-items-center ${isCollapsed ? 'icon-small' : 'icon'}`}>{icon}</div>}
-              <div className={`font-size-14 ${isCollapsed ? 'hidden' : 'text-white'}`}>{title}</div>
+              <div className='font-size-14 text-white desktop-text'>{title}</div>
             </NavLink>
           </li>
         ))}
