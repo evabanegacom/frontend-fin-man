@@ -27,33 +27,18 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen, debtMgts}: Props) => {
         {
           id: 1,
           name: 'Debt overview',
-          action: () => console.log('Rider overview'),
           color: '#7975B6',
           icon: <HiOutlineEye color='#7975B6' />,
-          // modal: <RiderOverview isOpen={openRiderOverView} setIsOpen={setRiderOverView}/>,
           onClick: () => {
             setDebtOverview(true)
           }
         },
-        // {
-        //   id: 2,
-        //   name: 'Re assign axis',
-        //   action: () => console.log('Re assign axis'),
-        //   icon: <BiCheckCircle color='#5A9A8F'/>,
-        //   color: '#5A9A8F',
-        //   onClick: () => {
-        //     setReassignAxis(true)
-        //   }
-    
-        // },
         {
           id: 3,
 
           name: 'Record debt payment',
-          action: () => console.log('edit account number'),
           icon: <IoIosAddCircle color='#C8CC66' />,
           color: '#C8CC66',
-          // modal: <EditAccountNumber isOpen={openEditAccountNumber} setIsOpen={setEditAccountNumber} />,
           onClick: () => {
             setOpenDebtPayment(true)
           }
@@ -61,7 +46,6 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen, debtMgts}: Props) => {
         {
           id: 4,
           name: 'Delete',
-          action: () => console.log('deactivate account number'),
           icon: <TbTrash color='#F00' />,
           color: '#F00',
           onClick: deleteDebt
@@ -107,9 +91,6 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen, debtMgts}: Props) => {
         </div>
         <DebtPaymentForm isOpen={openDebtPayment} setIsOpen={setOpenDebtPayment} selectedDebt={selectedDebt} />
         <DebtOverview debtMgts={debtMgts} isOpen={openDebtOverview} setIsOpen={setDebtOverview} selectedDebt={selectedDebt} />
-      {/* <RiderOverview isOpen={openRiderOverView} setIsOpen={setRiderOverView} selectedRider={selectedRider} /> */}
-      {/* <ReassignAxis isOpen={openReassignAxis} setIsOpen={setReassignAxis} selectedRider={selectedRider} /> */}
-      {/* <EditAccountNumber isOpen={openEditAccountNumber} setIsOpen={setEditAccountNumber} selectedRider={selectedRider} /> */}
     </>
   )
 }

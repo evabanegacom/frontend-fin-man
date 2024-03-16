@@ -16,7 +16,7 @@ interface Props {
 const DebtOverview = ({ isOpen, setIsOpen, selectedDebt, debtMgts }: Props) => {
   const [ debtPayment, setDebtPayment ] = useState<any>({})
   const [ toggleButton, setToggleButton] = useState('General information')
-
+  
   const upcomingDebtPayment = async () => {
     const response = await DebtMgtsService.upcomingDebts(selectedDebt?.id)
     setDebtPayment(response)
@@ -66,7 +66,7 @@ const DebtOverview = ({ isOpen, setIsOpen, selectedDebt, debtMgts }: Props) => {
           </div>
           <div>
             <div className='rider-earning'><span className='rider-earning-text'>Payment made:</span>
-              <span className='rider-earned-amount'>{formatAsCurrency(debtPayment?.total_payment)}</span>
+              <span className='rider-earned-amount'>{selectedDebt?.completed ? formatAsCurrency(debtMgts?.total_payment) :formatAsCurrency(debtPayment?.total_payment)}</span>
             </div>
 
             <div className='rider-earning'><span className='rider-earning-text'>Payment Remaining:</span>

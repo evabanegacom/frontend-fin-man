@@ -15,6 +15,8 @@ const DebtPaymentForm = ({ isOpen, setIsOpen, selectedDebt}: Props) => {
         debt_mgt_id: selectedDebt?.id
     })
 
+    console.log({selectedDebt})
+
     const handleSubmit = async (e: any) => {
         e.preventDefault()
         console.log(debtPayment)

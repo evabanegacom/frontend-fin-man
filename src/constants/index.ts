@@ -254,20 +254,29 @@ export const getCurrentDate = () => {
 };
 
 export const formatAsCurrency = (amount: string | number) => {
-  // Convert string to number if it's a string
   const numericAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
 
-  // Check if numericAmount is a valid number
   if (isNaN(numericAmount)) {
     return ''; // Return empty string if numericAmount is NaN
   }
 
-  // Format numericAmount as currency
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'NGN'
   }).format(numericAmount);
 };
+
+export function formatDateTime(dateTimeString:string) {
+  const date = new Date(dateTimeString);
+  const options:any = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC'
+  };
+  return date.toLocaleString('en-US', options);
+}
+
 
 
 export const logout = () => {

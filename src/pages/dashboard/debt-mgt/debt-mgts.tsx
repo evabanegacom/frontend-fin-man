@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import DebtMgtActions from './debt-mgt-actions';
 import './debt-mgt.css';
-import { formatAsCurrency } from '../../../constants';
+import { formatAsCurrency, formatDateTime } from '../../../constants';
 
 const DebtMgts = () => {
   const [debtMgts, setDebtMgts] = useState([])
@@ -15,7 +15,6 @@ const DebtMgts = () => {
   const user_id = useSelector((state: any) => state?.reducer?.auth?.user?.id);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDebt, setSelectedDebt] = useState<any>({});
-
   const getUserDebts = async () => {
     const response = await DebtMgtsService.getDebtByUser(user_id, pageNumber)
     setUserDebts(response)
@@ -36,7 +35,7 @@ const DebtMgts = () => {
     getUserDebts()
   }, [selectedDebt?.id])
 
-  const tableHeader = [ 'Avatar', 'Name', 'Target Amount', 'Contribution Type', 'Contribution Amount', 'Target Date', 'Completed', 'Action']
+  const tableHeader = [ 'Avatar', 'Name', 'Target Amount', 'Contribution Type', 'Contribution Amount', 'Completion Date', 'Completed', 'Action']
   return (
     <div>
 <h1 className="text-center font-bold text-3xl text-gray-900 mt-3">DebtMgts</h1>
@@ -66,7 +65,7 @@ const DebtMgts = () => {
               <td className="border-b-2 border-sky-500 px-4 py-2">{formatAsCurrency(debt?.target_amount)}</td>
               <td className="border-b-2 border-sky-500 px-4 py-2">{debt?.contribution_type}</td>
               <td className="border-b-2 border-sky-500 px-4 py-2">{formatAsCurrency(debt?.contribution_amount)}</td>
-              <td className="border-b-2 border-sky-500 px-4 py-2">{debt?.target_date}</td>
+              <td className="border-b-2 border-sky-500 px-4 py-2">{formatDateTime(debt?.target_date)}</td>
               <td className="border-b-2 border-sky-500 px-4 py-2">{debt.completed ? 'Yes' : 'No'}</td>
               <td
                 style={{ position: 'relative' }}
