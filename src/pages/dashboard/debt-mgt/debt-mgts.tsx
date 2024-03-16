@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import DebtMgtActions from './debt-mgt-actions';
 import './debt-mgt.css';
+import { formatAsCurrency } from '../../../constants';
 
 const DebtMgts = () => {
   const [debtMgts, setDebtMgts] = useState([])
@@ -21,8 +22,8 @@ const DebtMgts = () => {
   }
 
   const getUpcomingDebtMgts = async () => {
-    const response = await DebtMgtsService.upcomingDebts(1)
-    setDebtMgts(response.data)
+    const response = await DebtMgtsService.upcomingDebts(selectedDebt?.id)
+    setDebtMgts(response)
   }
 
   const selectRider = (debt: any) => {
@@ -33,15 +34,15 @@ const DebtMgts = () => {
   useEffect(() => {
     getUpcomingDebtMgts()
     getUserDebts()
-  }, [])
+  }, [selectedDebt?.id])
 
-  const tableHeader = [ 'Avatar', 'Name', 'Purpose', 'Target Amount', 'Contribution Type', 'Contribution Amount', 'Target Date', 'Completed', 'Action']
+  const tableHeader = [ 'Avatar', 'Name', 'Target Amount', 'Contribution Type', 'Contribution Amount', 'Target Date', 'Completed', 'Action']
   return (
     <div>
 <h1 className="text-center font-bold text-3xl text-gray-900 mt-3">DebtMgts</h1>
 <h5 className="text-center font-bold text-1xl text-gray-900 mt-3">Record the debt(s) you're owing and intend to pay here</h5>
 
-      <DebtMgtForm />
+      <DebtMgtForm userDebt={getUserDebts}/>
       <br />
       <div className='table-wrapper'>
       <table className="table-auto w-full text-center debt-table">
@@ -58,13 +59,13 @@ const DebtMgts = () => {
             <tr key={debt?.id}>
               {/* <td className="border px-4 py-2">{debt.id}</td> */}
               <td className="border-b-2 border-sky-500 px-4 py-2">
-                <img src={debt?.avatar?.url} alt="Avatar" className="h-12 w-12 object-cover" />
+              <img src={debt?.avatar?.url} alt="Avatar" className="h-12 w-12 object-cover rounded-full" />
               </td>
               <td className="border-b-2 border-sky-500 px-4 py-2">{debt?.name}</td>
-              <td className="border-b-2 border-sky-500 px-4 py-2">{debt?.purpose}</td>
-              <td className="border-b-2 border-sky-500 px-4 py-2">{debt?.target_amount}</td>
+              {/* <td className="border-b-2 border-sky-500 px-4 py-2">{debt?.purpose}</td> */}
+              <td className="border-b-2 border-sky-500 px-4 py-2">{formatAsCurrency(debt?.target_amount)}</td>
               <td className="border-b-2 border-sky-500 px-4 py-2">{debt?.contribution_type}</td>
-              <td className="border-b-2 border-sky-500 px-4 py-2">{debt?.contribution_amount}</td>
+              <td className="border-b-2 border-sky-500 px-4 py-2">{formatAsCurrency(debt?.contribution_amount)}</td>
               <td className="border-b-2 border-sky-500 px-4 py-2">{debt?.target_date}</td>
               <td className="border-b-2 border-sky-500 px-4 py-2">{debt.completed ? 'Yes' : 'No'}</td>
               <td
@@ -74,7 +75,7 @@ const DebtMgts = () => {
               >
                 <PiDotsThreeVerticalBold />
                 {isOpen && selectedDebt?.id === debt?.id ? (
-                  <div><DebtMgtActions isOpen={true} selectedDebt={selectedDebt} setIsOpen={setIsOpen} /></div>
+                  <div><DebtMgtActions isOpen={true} selectedDebt={selectedDebt} setIsOpen={setIsOpen} debtMgts={debtMgts}/></div>
                 ) : null}
               </td>
 

@@ -4,14 +4,16 @@ import { PiProhibitBold } from 'react-icons/pi';
 import DebtMgtsService from '../../../services/debt-mgt-service';
 import GeneralOverview from './general-overview/general-overview';
 import PaymentHistory from './payment-history/payment-history';
+import { formatAsCurrency } from '../../../constants';
 
 interface Props {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   selectedDebt: any;
+  debtMgts: any;
 }
 
-const DebtOverview = ({ isOpen, setIsOpen, selectedDebt }: Props) => {
+const DebtOverview = ({ isOpen, setIsOpen, selectedDebt, debtMgts }: Props) => {
   const [ debtPayment, setDebtPayment ] = useState<any>({})
   const [ toggleButton, setToggleButton] = useState('General information')
 
@@ -35,15 +37,6 @@ const DebtOverview = ({ isOpen, setIsOpen, selectedDebt }: Props) => {
     upcomingDebtPayment()
   }, [])
 
-  function formatAmountAsNaira(totalAmount: number) {
-    const formattedAmount = totalAmount?.toLocaleString('en-NG', {
-      style: 'currency',
-      currency: 'NGN'
-    });
-
-    return formattedAmount;
-  }
-
   const deleteDebt = async() => {
     const response = await DebtMgtsService.deleteDebt(selectedDebt?.id)
     console.log(response)
@@ -58,7 +51,7 @@ const DebtOverview = ({ isOpen, setIsOpen, selectedDebt }: Props) => {
       <div className='modal-content-body'>
         <div className='fleet-overview-container'>
           <div className='rider-detail-header' style={{ display: 'flex', alignItems: 'center' }}>
-            <span style={{ flex: 1, textAlign: 'center' }}>Rider details</span>
+            <span style={{ flex: 1, textAlign: 'center' }}>Debt Payment Details</span>
             <FaTimes onClick={() => setIsOpen(false)} style={{ cursor: 'pointer' }} />
           </div>
           <div className='user-name'>
@@ -73,11 +66,11 @@ const DebtOverview = ({ isOpen, setIsOpen, selectedDebt }: Props) => {
           </div>
           <div>
             <div className='rider-earning'><span className='rider-earning-text'>Payment made:</span>
-              <span className='rider-earned-amount'>{formatAmountAsNaira(debtPayment?.total_payment)}</span>
+              <span className='rider-earned-amount'>{formatAsCurrency(debtPayment?.total_payment)}</span>
             </div>
 
             <div className='rider-earning'><span className='rider-earning-text'>Payment Remaining:</span>
-              <span className='rider-earned-amount'>{formatAmountAsNaira(debtPayment?.upcoming_payment)}</span>
+              <span className='rider-earned-amount'>{formatAsCurrency(debtPayment?.upcoming_payment)}</span>
             </div>
             
               <div className='suspend'>
@@ -88,9 +81,9 @@ const DebtOverview = ({ isOpen, setIsOpen, selectedDebt }: Props) => {
 
 <div className='rider-information'>
            <button onClick={() => setToggleButton('General information')} style={{ borderBottom: toggleButton==='General information' ? '2px solid #444266' : ''}}>General information</button>
-           <button onClick={() => setToggleButton('payment history')} style={{ borderBottom: toggleButton==='payment history' ? '2px solid #444266' : ''}}>Rider history ({selectedDebt?.length})</button>
+           <button onClick={() => setToggleButton('payment history')} style={{ borderBottom: toggleButton==='payment history' ? '2px solid #444266' : ''}}>Payment history ({selectedDebt?.length})</button>
           </div>
-          {toggleButton === 'General information' ? <GeneralOverview selectedDebt={selectedDebt}/> : <PaymentHistory selectedDebt={selectedDebt} />}
+          {toggleButton === 'General information' ? <GeneralOverview selectedDebt={selectedDebt} debtMgts={debtMgts}/> : <PaymentHistory selectedDebt={selectedDebt} />}
 
            
           </div>

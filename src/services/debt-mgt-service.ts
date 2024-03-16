@@ -16,8 +16,8 @@ const createDebtPayment = async (id: number, data:any) => {
 }
 
 const upcomingDebts = async (id:number) => {
-    const response = await api.get(`/debt_mgts/${id}/upcoming_debt_payment?id=${id}`)
-    return response.data;
+    const response = await api.get(`/debt_mgts/${id}/upcoming_debt_payment`)
+    return response?.data;
     }
 
 const getDebtByUser = async (userId:number, pageNumber:number) => {

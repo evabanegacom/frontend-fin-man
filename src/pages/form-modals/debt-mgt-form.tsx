@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import DebtMgtsService from '../../services/debt-mgt-service';
 import { useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loader from '../../constants/Loader';
+import { getCurrentDate } from '../../constants';
 
-const DebtMgtForm = () => {
+
+interface Props {
+  userDebt: () => void;
+}
+
+const DebtMgtForm:React.FC<Props> = ({userDebt}) => {
   const user_id = useSelector((state: any) => state?.reducer?.auth?.user?.id);
+  const [ loading, setLoading ] = useState(false)
   const [saving, setSaving] = useState<any>({
     name: '',
     purpose: '',
@@ -16,6 +26,8 @@ const DebtMgtForm = () => {
     avatar: null,
   });
 
+  const validate = saving?.name === '' || saving?.purpose === '' || saving?.target_amount === '' || saving?.category === '' || saving?.target_date === '' || saving?.contribution_type === '' || saving?.contribution_amount === '' || saving?.user_id === '';
+
   const handleChange = (e: any) => {
     const { name, value, files } = e.target;
     setSaving((prevSaving:any) => ({
@@ -26,6 +38,7 @@ const DebtMgtForm = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData();
     Object.entries(saving).forEach(([key, value]) => {
       formData.append(key, value as any);
@@ -33,55 +46,63 @@ const DebtMgtForm = () => {
     try {
       await DebtMgtsService.createDebtMgt(formData);
       // Handle success, redirect, or perform additional actions
+      toast.success('Debt recorded successfully')
+      userDebt()
     } catch (error) {
       // Handle error
       console.error('Error creating budget:', error);
+    } finally {
+      setLoading(false); // Set loading state to false regardless of success or failure
     }
   };
+  
 
   return (
+    <>
+    <ToastContainer />
 <form onSubmit={handleSubmit} className="flex flex-col w-full lg:w-1/2 mx-auto p-6 rounded-lg shadow-md">
 
       <label className="block text-gray-700 text-sm font-bold mb-1 mt-3">
-        Name:
+        Name of Debt Owner:
       </label>
-      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="name" onChange={handleChange} placeholder="Enter your name" />
+      <input required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="name" onChange={handleChange} placeholder="Enter your name" />
 
       <label className="block text-gray-700 text-sm font-bold mt-5 mb-1">
         Purpose:
       </label>
-      <textarea className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="purpose" onChange={handleChange} placeholder="Purpose"></textarea>
-
+      <textarea required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="purpose" onChange={handleChange} placeholder="Purpose"></textarea>
 
       <label className="block text-gray-700 text-sm font-bold mt-5 mb-1">
-        Target amount:
+        Debt Amount:
       </label>
-      <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="target_amount" onChange={handleChange} placeholder="Enter debt amount" />
+      <input required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" name="target_amount" onChange={handleChange} placeholder="Enter debt amount" />
 
-      <select className="mt-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name='category' onChange={handleChange} value={saving?.category}>
+      <select required className="mt-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name='category' onChange={handleChange} value={saving?.category}>
         <option value="">Select category</option>
         <option value="vacation">vacation</option>
-        <option value="car">car</option>
-        <option value="house">house</option>
-        <option value="education">education</option>
-        <option value="other">other</option>
+        <option value="car">Car</option>
+        <option value='health'>Health</option>
+        <option value="housing">Housing</option>
+        <option value="education">Education</option>
+        <option value="other">Other</option>
       </select>
 
 
       <label className="block text-gray-700 text-sm font-bold mb-2 mt-5">
-        Target Date:
-        <input type="date" name="target_date" required onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+        Date to complete debt payment:
+        <input  min={getCurrentDate()}
+ required type="date" name="target_date" onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
       </label>
 
-      <select className="mt-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={handleChange} name='contribution_type' value={saving?.contribution_type}>
-        <option value="contribution_type" className="text-gray-700">Select Frequency</option>
+      <select required className="mt-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" onChange={handleChange} name='contribution_type' value={saving?.contribution_type}>
+        <option value="contribution_type" className="text-gray-700">Select Payment Frequency</option>
         <option value="weekly" className="text-gray-700">Weekly</option>
         <option value="monthly" className="text-gray-700">Monthly</option>
         <option value="yearly" className="text-gray-700">Yearly</option>
       </select>
 
       <label className="block text-gray-700 text-sm font-bold mb-2 mt-6">
-        Contribution Amount:
+        Paying Amount:
         <input type="number" name="contribution_amount" min={1} required onChange={handleChange} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
       </label>
 
@@ -102,9 +123,11 @@ const DebtMgtForm = () => {
 
       </label>
 
-      <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3">Record debt</button>
+      <button disabled={loading || validate} type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3">
+        {loading ? <Loader /> : 'Record debt'} </button>
 
     </form>
+    </>
   );
 };
 

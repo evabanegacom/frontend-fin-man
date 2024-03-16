@@ -11,8 +11,9 @@ interface Props {
   isOpen: boolean;
   setIsOpen: (isOpen:boolean) => void;
   selectedDebt: any;
+  debtMgts: any;
 }
-const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen}: Props) => {
+const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen, debtMgts}: Props) => {
     const ref:any = useRef(null);
     const [openDebtPayment, setOpenDebtPayment] = useState(false);
     const [openDebtOverview, setDebtOverview] = useState(false);
@@ -105,7 +106,7 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen}: Props) => {
           </div>
         </div>
         <DebtPaymentForm isOpen={openDebtPayment} setIsOpen={setOpenDebtPayment} selectedDebt={selectedDebt} />
-        <DebtOverview isOpen={openDebtOverview} setIsOpen={setDebtOverview} selectedDebt={selectedDebt} />
+        <DebtOverview debtMgts={debtMgts} isOpen={openDebtOverview} setIsOpen={setDebtOverview} selectedDebt={selectedDebt} />
       {/* <RiderOverview isOpen={openRiderOverView} setIsOpen={setRiderOverView} selectedRider={selectedRider} /> */}
       {/* <ReassignAxis isOpen={openReassignAxis} setIsOpen={setReassignAxis} selectedRider={selectedRider} /> */}
       {/* <EditAccountNumber isOpen={openEditAccountNumber} setIsOpen={setEditAccountNumber} selectedRider={selectedRider} /> */}

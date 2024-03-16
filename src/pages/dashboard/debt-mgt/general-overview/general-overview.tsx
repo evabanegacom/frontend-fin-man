@@ -1,43 +1,44 @@
 import React from 'react';
 import './general-overview.css';
+import { formatAsCurrency } from '../../../../constants';
 
 interface Props {
     selectedDebt: any;
+    debtMgts: any;
     }
 
-const GeneralOverview:React.FC<Props> = ({ selectedDebt}) => {
+const GeneralOverview:React.FC<Props> = ({ selectedDebt, debtMgts}) => {
+  console.log({debtMgts})
   return (
     <div className='rider-information-container'>
 
     <div className='rider-information-details'>
       <div className='information-heading'><b className='ml-1'>Debt Information</b></div>
-      <div className='rider-data ml-1'>
-        <div>Full Name: <b>{selectedDebt?.first_name} {" "} {selectedDebt?.last_name}</b></div>
-        <div>Mobile number: <strong>{selectedDebt?.mobile}</strong></div>
+      <div className='flex flex-col gap-3'>
+        <div>Amount owed: <b> {formatAsCurrency(selectedDebt?.target_amount)}</b></div>
+        <div>Proposed date of completion: <strong>{selectedDebt?.target_date}</strong></div>
+      <div>Last payment date: <b>{debtMgts?.last_contribution_date ? debtMgts?.last_contribution_date : 'No payments made'}</b></div>
       </div>
-      <div className='ml-1'>email: <b>{selectedDebt?.email}</b></div>
     </div>
 
     <div>
-      <div className='information-heading'><b className='ml-1'>Delivery axis</b></div>
-      {/* <div className='rider-data ml-1'><b>{findEstate(selectedDebt?.estateID)}</b></div> */}
+      <div className='information-heading'><b className='ml-1'>Next Payment Schedule</b></div>
+      <div className='mt-3 text-center'><b>{debtMgts?.next_contribution_date ? debtMgts?.next_contribution_date : 'No payments made'}</b></div>
     </div>
 
     <div>
-      <div className='information-heading'><b className='ml-1'>Account information</b></div>
-      <div className='ml-1 mt-2'><strong>{selectedDebt?.rider_details?.bank_accounts[0]?.bank_name || 'No data'}</strong></div>
-      <div className='ml-1'><strong>{selectedDebt?.rider_details?.bank_accounts[0]?.account_number || 'No data'}</strong></div>
-      <div className='ml-1'><strong>{selectedDebt?.rider_details?.bank_accounts[0]?.account_name || 'No data'}</strong></div>
+      <div className='information-heading'><b className='ml-1'>Purpose of debt</b></div>
+      <div className='mt-3'><strong>{selectedDebt?.purpose}</strong></div>
     </div>
 
     <div>
-      <div className='information-heading'><b className='ml-1'>Vehicle type</b></div>
-      <div className='mt-2 ml-1'><b>{selectedDebt?.rider_details?.vehicle_type}</b></div>
+      <div className='information-heading'><b className='ml-1'>Payment type</b></div>
+      <div className='mt-3'><b>{selectedDebt?.contribution_type}</b></div>
     </div>
 
     <div>
-      <div className='information-heading'><b className='ml-1'>Number of deliveries</b></div>
-      <div className='mt-2 ml-1'><b>{selectedDebt?.wallet?.transactions.filter((transaction: any) => transaction?.status === 'completed').length}</b></div>
+      <div className='information-heading'><b className='ml-1'>Number of payments</b></div>
+      <div className='mt-3'><b>{selectedDebt?.wallet?.transactions.filter((transaction: any) => transaction?.status === 'completed').length}</b></div>
     </div>
 
   </div>  )

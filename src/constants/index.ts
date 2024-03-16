@@ -237,6 +237,39 @@ export const clients = [
   },
 ];
 
+export const getCurrentDate = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  let month: string | number = today.getMonth() + 1;
+  let day: string | number = today.getDate();
+
+  if (month < 10) {
+    month = '0' + month;
+  }
+  if (day < 10) {
+    day = '0' + day;
+  }
+
+  return `${year}-${month}-${day}`;
+};
+
+export const formatAsCurrency = (amount: string | number) => {
+  // Convert string to number if it's a string
+  const numericAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+
+  // Check if numericAmount is a valid number
+  if (isNaN(numericAmount)) {
+    return ''; // Return empty string if numericAmount is NaN
+  }
+
+  // Format numericAmount as currency
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'NGN'
+  }).format(numericAmount);
+};
+
+
 export const logout = () => {
   localStorage.clear();
   window.location.href='/'
