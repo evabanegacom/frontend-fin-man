@@ -36,8 +36,7 @@ const DebtOverview = ({ isOpen, setIsOpen, selectedDebt }: Props) => {
   }, [])
 
   function formatAmountAsNaira(totalAmount: number) {
-    const amountInNaira = totalAmount;
-    const formattedAmount = amountInNaira.toLocaleString('en-NG', {
+    const formattedAmount = totalAmount?.toLocaleString('en-NG', {
       style: 'currency',
       currency: 'NGN'
     });

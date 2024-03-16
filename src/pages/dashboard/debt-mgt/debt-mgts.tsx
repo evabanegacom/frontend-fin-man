@@ -38,9 +38,12 @@ const DebtMgts = () => {
   const tableHeader = [ 'Avatar', 'Name', 'Purpose', 'Target Amount', 'Contribution Type', 'Contribution Amount', 'Target Date', 'Completed', 'Action']
   return (
     <div>
-      <h1>DebtMgts</h1>
+<h1 className="text-center font-bold text-3xl text-gray-900 mt-3">DebtMgts</h1>
+<h5 className="text-center font-bold text-1xl text-gray-900 mt-3">Record the debt(s) you're owing and intend to pay here</h5>
+
       <DebtMgtForm />
       <br />
+      <div className='table-wrapper'>
       <table className="table-auto w-full text-center debt-table">
         <thead>
           <tr>
@@ -79,7 +82,7 @@ const DebtMgts = () => {
           ))}
         </tbody>
       </table>
-      
+      </div>
     </div>
   )
 }

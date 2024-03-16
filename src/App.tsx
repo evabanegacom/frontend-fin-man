@@ -51,7 +51,7 @@ function App() {
         </div>
 
         <BrowserRouter>
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<div style={{ color:'red'}}>Loading...</div>}>
             <Routes>
 
               <Route path='/' element={<Combined />} />

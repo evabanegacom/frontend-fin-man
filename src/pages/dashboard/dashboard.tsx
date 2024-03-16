@@ -36,7 +36,7 @@ function Dashboard() {
       <main className={`flex-1 p-2 bg-gray-100`}>
         <div className="md:hidden">
           <button className="text-white p-2" onClick={toggleCollapseMobile}>
-            <MdMenu size={24} />
+            <MdMenu size={24} className="font-bold text-1xl text-gray-900"/>
           </button>
         </div>
         <Outlet />

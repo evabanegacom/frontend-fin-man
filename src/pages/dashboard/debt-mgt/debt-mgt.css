@@ -1,5 +1,10 @@
+.table-wrapper {
+  width: 0;
+  min-width: 100%;
+  overflow-x: auto;
+}
+
 .debt-table {
-    width: 100%;
     border-collapse: collapse;
     border: 1px solid #dfddf6;
     margin-top: 20px;
