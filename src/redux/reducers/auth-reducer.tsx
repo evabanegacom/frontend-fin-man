@@ -4,6 +4,7 @@ interface userDataProps {
     id: string;
     email: string;
     name: string;
+    activated: boolean
 }
 
 interface authProps {
@@ -16,10 +17,10 @@ let initialState: authProps = {
     user: null
 };
 
-const userData = localStorage.getItem('user');
+const userData = localStorage?.getItem('user');
 
 if (userData) {
-    const parsedData = JSON.parse(userData);
+    const parsedData = userData && JSON.parse(userData);
     const decodedToken: any = jwtDecode(parsedData);
     const expiresAt = decodedToken && new Date(decodedToken?.exp * 1000);
     if (new Date() > expiresAt) {
@@ -30,7 +31,8 @@ if (userData) {
             user: {
                 id: decodedToken?.user_id,
                 email: decodedToken?.email,
-                name: decodedToken?.name
+                name: decodedToken?.name,
+                activated: decodedToken?.activated
             }
         };
     }

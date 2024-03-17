@@ -37,8 +37,7 @@ const Combined = () => {
 function App() {
   const isLoggedin = useSelector((state: any) => state?.reducer?.auth?.isAuth);
   const Dashboard = lazy(() => import('./pages/dashboard/dashboard'));
-
-  const isLoginOrSignUpPage = window.location.pathname === '/login' || window.location.pathname === '/signup';
+  const isLoginOrSignUpPage = window.location.pathname === '/login' || window.location.pathname === '/signup' || window.location.pathname.includes('activate') || window.location.pathname === '/forgot-password' || window.location.pathname.includes('/reset-password')
 
   return (
     <ErrorBoundary fallback={<div>Something went wrong</div>}>
@@ -59,6 +58,7 @@ function App() {
                 <>
                   <Route path='/signup' element={<SignUp />} />
                   <Route path='/login' element={<Login />} />
+                  
                 </>
               )}
               {isLoggedin && (
@@ -72,11 +72,11 @@ function App() {
                     <Route path='/dashboard/overview' element={<Overview />} />
 
                   </Route>
-                  <Route path='/activate' element={<ActivateAccount />} />
-                  <Route path='/forgot-password' element={<ForgotPassword />} />
-                  <Route path='/reset-password' element={<ResetPassword />} />
                 </>
               )}
+              <Route path='/activate' element={<ActivateAccount />} />
+              <Route path='/forgot-password' element={<ForgotPassword />} />
+              <Route path='/reset-password' element={<ResetPassword />} />
               <Route path='*' element={<h1>Not Found</h1>} />
             </Routes>
           </Suspense>

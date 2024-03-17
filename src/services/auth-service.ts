@@ -2,7 +2,7 @@ import { submitFormData, api } from '../utils/api';
 
 const createAccount = async (formData:any) => {
     const response = await submitFormData(formData, 'users')
-    return response?.data;
+    return response
     }
 
 const login = async (data:any) => {
@@ -20,11 +20,17 @@ const  updatePassword = async (data:any) => {
     return response?.data;
 }
 
+const generateActivationLink = async (email:string) => {
+    const response = await api.post('/generate_activation_token', { email })
+    return response?.data;
+}
+
 const AuthService = {
     createAccount,
     login,
     forgotPassword,
-    updatePassword
+    updatePassword,
+    generateActivationLink
 }
 
 export default AuthService;

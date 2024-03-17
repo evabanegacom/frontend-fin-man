@@ -1,9 +1,13 @@
 import { useState, useRef, } from 'react'
 import AuthService from '../services/auth-service';
 import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
+import Loader from '../constants/Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [ loading, setLoading ] = useState(false);
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false);
   const fileRef = useRef<any>(null);
 
@@ -37,19 +41,31 @@ const SignUp = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData();
     Object.entries(user).forEach(([key, value]) => {
       formData.append(key, value as any);
     });
     try {
-      await AuthService.createAccount(formData);
+      const response = await AuthService.createAccount(formData);
       // Handle success, redirect, or perform additional actions
-    } catch (error) {
+      toast.success(response?.message)
+      localStorage.setItem('user', JSON.stringify(response?.jwt_token));
+      setTimeout(() => {
+        window.location.href = '/dashboard/overview';
+      }, 2000)
+    } catch (error:any) {
       // Handle error
+      const errorMessages = error?.response?.data?.errors
+      toast.error(`${errorMessages[0]} OR ${errorMessages[1]} OR ${errorMessages[2]} OR An error occurred`)
       console.error('Error creating user:', error);
+    } finally {
+      setLoading(false); // Set loading state to false regardless of success or failure
     }
   };
   return (
+    <>
+    <ToastContainer />
     <div className='bg-gray-100 py-10'>
       <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 py-12 px-4 sm:px-6 lg:px-8">
         <h5 className="font-bold text-center mb-8">Sign Up</h5>
@@ -96,7 +112,7 @@ const SignUp = () => {
 
 
           <div className='mt-4'>
-            <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">Sign Up</button>
+            <button disabled={loading} type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">{loading ? <Loader /> : 'Sign Up'}</button>
           </div>
         </form>
         <div className="text-center flex justify-between mt-4">
@@ -110,6 +126,7 @@ const SignUp = () => {
       </div>
 
     </div>
+    </>
   )
 }
 

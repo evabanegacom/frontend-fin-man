@@ -5,6 +5,8 @@ export const api: AxiosInstance = axios.create({
   baseURL: baseURL,
 });
 
+const token = localStorage.getItem('user');
+
 // Request interceptor
 api.interceptors.request.use(
   (config): InternalAxiosRequestConfig => {
@@ -12,7 +14,7 @@ api.interceptors.request.use(
     config.headers = config.headers || {
       Accept: "application/json",
     }; // Provide a default empty object for headers
-    config.headers['Authorization'] = 'Bearer YOUR_API_TOKEN'; // Add an authorization header
+    config.headers['Authorization'] = `Bearer ${token}`;
     return config;
   },
   (error: AxiosError): Promise<AxiosError> => {
@@ -42,7 +44,7 @@ export const submitFormData = async (formData: FormData, endpoint:string) => {
     });
 
     // Handle success if needed
-    console.log('Success:', response.data);
+    console.log('Success:', response?.data);
     return response.data;
   } catch (error) {
     // Handle error

@@ -7,6 +7,7 @@ import { PiDotsThreeVerticalBold } from "react-icons/pi";
 import DebtMgtActions from './debt-mgt-actions';
 import './debt-mgt.css';
 import { formatAsCurrency, formatDateTime } from '../../../constants';
+import Loader from '../../../constants/Loader';
 
 const DebtMgts = () => {
   const [debtMgts, setDebtMgts] = useState([])
@@ -15,10 +16,20 @@ const DebtMgts = () => {
   const user_id = useSelector((state: any) => state?.reducer?.auth?.user?.id);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDebt, setSelectedDebt] = useState<any>({});
-  const getUserDebts = async () => {
-    const response = await DebtMgtsService.getDebtByUser(user_id, pageNumber)
-    setUserDebts(response)
-  }
+  const [ loading, setLoading ] = useState(false)
+  
+const getUserDebts = async () => {
+    setLoading(true)
+    try {
+      const response = await DebtMgtsService.getDebtByUser(user_id, pageNumber)
+      setUserDebts(response)
+    } catch (error:any) {
+      // Handle error
+      console.error('Error fetching debts:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const getUpcomingDebtMgts = async () => {
     const response = await DebtMgtsService.upcomingDebts(selectedDebt?.id)
@@ -54,7 +65,11 @@ const DebtMgts = () => {
           </tr>
         </thead>
         <tbody>
-          {userDebts.map((debt:any) => (
+          { loading ? <tr>
+      <td colSpan={8} className="text-center">
+        <div className="mx-auto"><Loader /></div>
+      </td>
+    </tr> : userDebts.length > 0 ? userDebts.map((debt:any) => (
             <tr key={debt?.id}>
               {/* <td className="border px-4 py-2">{debt.id}</td> */}
               <td className="border-b-2 border-sky-500 px-4 py-2">
@@ -79,7 +94,11 @@ const DebtMgts = () => {
               </td>
 
             </tr>
-          ))}
+          )): <tr>
+          <td colSpan={8} className="text-center font-bold text-2xl">
+            No data available. Fill the form above to record a debt.
+          </td>
+        </tr>}
         </tbody>
       </table>
       </div>

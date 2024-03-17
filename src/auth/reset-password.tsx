@@ -1,14 +1,30 @@
 import { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthService from '../services/auth-service';
+import { RiEyeFill, RiEyeOffFill } from 'react-icons/ri';
 
 const ResetPassword = () => {
     const searchParams = new URLSearchParams(window.location.search);
     const token = searchParams.get('token');
-    const [ newPassword, setNewPassword ] = useState('');
+    const [ newPassword, setNewPassword ] = useState({
+      newPassword: '',
+      confirmPassword: ''
+    });
+    const [showPassword, setShowPassword] = useState(false);
+  const [ loading, setLoading ] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+
+  const toggleShowNewPassword = () => {
+    setShowNewPassword(!showNewPassword);
+  }
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
     const navigate = useNavigate();
     const confirmAccount = async () => {
         const response:any = await axios.get(`https://fin-man.fly.dev/api/v1/password/reset/${token}`);
@@ -33,7 +49,7 @@ const ResetPassword = () => {
             // write logic to make password password match
 
             const data = {
-              new_password: newPassword,
+              new_password: newPassword?.newPassword,
               reset_token: token
             }
 
@@ -52,18 +68,32 @@ const ResetPassword = () => {
 
     
   return (
-    <div style={{ color: '#fff'}}>
-              <ToastContainer />
+    <div style={{height: '89.3vh' }} className="">
+    <ToastContainer />
         <p>Reset your password</p>
         <form onSubmit={handleSubmit} className="flex flex-col">
-            <label>
-            New Password:
-            <input type="password" name="newPassword" style={{color: 'black' }} onChange={handleChange} />
-            </label>
-            <label>
-            Confirm Password:
-            <input type="password" name="confirmPassword" style={{color: 'black' }} onChange={handleChange} />
-            </label>
+
+            <div className="relative">
+            <label htmlFor="password" className="block text-sm text-gray-700 font-bold">New Password:</label>
+            <div className="mt-1 relative rounded-md shadow-sm">
+              <input type={showPassword ? 'text' : 'password'} name="newPassword" className="focus:ring-0 focus:outline-none block w-full pr-10 sm:text-sm border-b border-gray-300 p-2 border-gray-300 rounded-md" onChange={handleChange} />
+              <button type="button" className="absolute inset-y-0 right-0 pr-3 flex items-center" onClick={togglePasswordVisibility}>
+                {showPassword ? <RiEyeOffFill className="h-5 w-5 text-gray-400" /> : <RiEyeFill className="h-5 w-5 text-gray-400" />}
+              </button>
+            </div>
+          </div>
+
+
+          <div className="relative">
+            <label htmlFor="password" className="block text-sm text-gray-700 font-bold">Confirm Password:</label>
+            <div className="mt-1 relative rounded-md shadow-sm">
+              <input type={showPassword ? 'text' : 'password'} name="confirmPassword" className="focus:ring-0 focus:outline-none block w-full pr-10 sm:text-sm border-b border-gray-300 p-2 border-gray-300 rounded-md" onChange={handleChange} />
+              <button type="button" className="absolute inset-y-0 right-0 pr-3 flex items-center" onClick={togglePasswordVisibility}>
+                {showPassword ? <RiEyeOffFill className="h-5 w-5 text-gray-400" /> : <RiEyeFill className="h-5 w-5 text-gray-400" />}
+              </button>
+            </div>
+          </div>
+
             <button style={{ color: "#fff"}} type="submit">Submit</button>
         </form>
     </div>
