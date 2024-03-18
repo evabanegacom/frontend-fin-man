@@ -4,6 +4,7 @@ import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from '../constants/Loader';
 import SuccessModal from '../components/success-modal';
+import { logout } from '../constants';
 
 const ActivateAccount = () => {
   const searchParams = new URLSearchParams(window.location.search);
@@ -24,7 +25,8 @@ const ActivateAccount = () => {
       const response = await axios.post('https://fin-man.fly.dev/api/v1/activate', data);
       setSuccess(response)
       setTimeout(() => {
-        toast.success(response?.data?.message);
+        // toast.success(response?.data?.message);
+        setIsopen(true)
       }, 2000)
 
     } catch (error: any) {
@@ -35,8 +37,7 @@ const ActivateAccount = () => {
     } finally {
       setLoading(false);
       setTimeout(() => {
-        localStorage.clear()
-        window.location.href = '/'
+        logout()
       }, 3000)
     }
   };
@@ -44,7 +45,7 @@ const ActivateAccount = () => {
   useEffect(() => {
     setTimeout(() => {
       activateAccount();
-    }, 3000)
+    }, 1000)
   }, []);
 
   return (
@@ -55,8 +56,8 @@ const ActivateAccount = () => {
           <div className="flex items-center justify-center">
             <Loader />
           </div>
-        ) : (
-          <>
+        ) : null}
+        <>
             <ToastContainer />
             <p className="text-gray-700 text-lg mb-4">
               Your account is being activated. Please wait while we process your request...
@@ -66,9 +67,8 @@ const ActivateAccount = () => {
               Once your account is activated, you will be redirected to the login page.
             </p>
           </>
-        )}
       </div>
-      {/* {success?.data  || isOpen ? <SuccessModal message={success?.data?.message} onClose={() => setIsopen(false)} isOpen={isOpen}/> : null} */}
+      {isOpen ? <SuccessModal message={success?.data?.message} onClose={() => setIsopen(false)} isOpen={isOpen}/> : null}
     </div>
   );
 };

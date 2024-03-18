@@ -281,5 +281,5 @@ export function formatDateTime(dateTimeString:string) {
 
 export const logout = () => {
   localStorage.clear();
-  window.location.href='/'
+  window.location.href='/login'
 }

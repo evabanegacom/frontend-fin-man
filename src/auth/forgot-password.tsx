@@ -26,15 +26,14 @@ const ForgotPassword = () => {
         }, 3000)
     } catch (error:any) {
         // Handle error
-        toast.error('user doesn estis')
+        toast.error('user doesn\'t exist')
         console.error('Error logging in:', error);
         setLoading(false)
     }
 };
 
+const validate = email === ''
   return (
-
-
     <>
     <ToastContainer />
     <div style={{height: '89.3vh' }} className="flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
@@ -48,8 +47,8 @@ const ForgotPassword = () => {
                 </div>
                 
                 <div className="flex items-center justify-between">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                            {loading ? <Loader /> : 'Sign In'}
+                        <button disabled={validate || loading} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                            {loading ? <Loader /> : 'Submit'}
                         </button>
                         <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/login">
                             Cancel

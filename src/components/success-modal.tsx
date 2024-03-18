@@ -6,7 +6,7 @@ interface Props {
 }
 
 const SuccessModal = ({ message, onClose, isOpen }:Props) => {
-
+     console.log({message})
     if (!isOpen) return null
 
     return (
@@ -28,7 +28,7 @@ const SuccessModal = ({ message, onClose, isOpen }:Props) => {
                 d="M5 13l4 4L19 7"
               />
             </svg>
-            <h2 className="mt-4 text-lg font-semibold text-gray-800">{message?.data?.message}</h2>
+            <h2 className="mt-4 text-lg font-semibold text-gray-800">Account activated successfully</h2>
           </div>
           <div className="flex justify-end px-6 py-4 bg-gray-100 rounded-b-lg">
             <button

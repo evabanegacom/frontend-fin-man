@@ -25,12 +25,18 @@ const generateActivationLink = async (email:string) => {
     return response?.data;
 }
 
+const activateAccount = async (token:string) => {
+    const response = await api.post('/activate', {token} )
+    return response
+}
+
 const AuthService = {
     createAccount,
     login,
     forgotPassword,
     updatePassword,
-    generateActivationLink
+    generateActivationLink,
+    activateAccount
 }
 
 export default AuthService;
