@@ -19,7 +19,7 @@ export const signedInLinks = [
   },
 
   {
-    id: 'dashboard/overview',
+    id: '/dashboard/overview',
     title: 'Dashboard'
   },
 

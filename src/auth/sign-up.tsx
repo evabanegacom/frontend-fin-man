@@ -66,7 +66,7 @@ const SignUp = () => {
   return (
     <>
     <ToastContainer />
-    <div className='bg-gray-100 py-10'>
+    <div className='bg-gray-900 py-10'>
       <div className="max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 py-12 px-4 sm:px-6 lg:px-8">
         <h5 className="font-bold text-center mb-8">Sign Up</h5>
         <form onSubmit={handleSubmit} className="space-y-4">

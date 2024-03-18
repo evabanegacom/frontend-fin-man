@@ -20,6 +20,51 @@ const Overview = () => {
     },
   ];
 
+  const layout: any = {
+    xaxis: {
+      title: "Months",
+      tickangle: 90,
+      fixedrange: true,
+      ticklen: 10,
+    },
+    yaxis: {
+      title: "Responses",
+      tickvals: [0, 25, 50, 75, 100],
+      range: [0, 100],
+      fixedrange: true,
+    },
+    showlegend: false,
+    autosize: true,
+    responsive: true,
+    useResizeHandler: true,
+
+    margin: {
+      l: 50,
+      r: 10,
+      t: 10
+    },
+
+    staticPlot: true,
+
+    annotations: [
+      {
+        xref: "paper",
+        yref: "paper",
+        x: 0.5,
+        y: 0.5,
+        // text: projects?.length === 0 ? 'No Data' : '',
+        // text: loadingSurveyStats ? "Loading" : dashboardInfo?.graphData?.length === 0 ? "No Data" : "",
+        showarrow: false,
+        font: {
+          size: 16,
+          // color: 'red',
+          // color: loading ? "black" : "red",
+        },
+      },
+    ],
+
+  };
+
   const tableData = [
     { id: 1, name: 'John Doe', orders: 20, revenue: '$200' },
     { id: 2, name: 'Jane Smith', orders: 15, revenue: '$150' },
@@ -39,9 +84,12 @@ const Overview = () => {
       </div>
 
       {/* Plotly Chart */}
-      <div className="mb-4">
-        <Plot data={chartData} layout={{ title: 'Data Behavior Chart' }} />
-      </div>
+      <div className="w-full flex justify-center mt-5 mb-5">
+  <div className="w-full flex justify-center lg:w-3/4 xl:w-2/3">
+    <Plot data={chartData} layout={layout} style={{ minWidth: '100%'}} />
+  </div>
+</div>
+
 
       {/* Table */}
       <table className="min-w-full border border-gray-300">

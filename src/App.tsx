@@ -8,6 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSelector } from 'react-redux';
 import ErrorBoundary from './components/error-boundary';
+import Spinner from './constants/spinner';
 
 const Overview = lazy(() => import('./pages/dashboard/overview'));
 const Budgets = lazy(() => import('./pages/dashboard/budgets'));
@@ -37,7 +38,7 @@ const Combined = () => {
 function App() {
   const isLoggedin = useSelector((state: any) => state?.reducer?.auth?.isAuth);
   const Dashboard = lazy(() => import('./pages/dashboard/dashboard'));
-  const isLoginOrSignUpPage = window.location.pathname === '/login' || window.location.pathname === '/signup' || window.location.pathname.includes('activate') || window.location.pathname === '/forgot-password' || window.location.pathname.includes('/reset-password')
+  const isLoginOrSignUpPage = window.location.pathname === '/login' || window.location.pathname === '/signup' || window.location.pathname.includes('activate') || window.location.pathname === '/forgot-password' || window.location.pathname.includes('/reset-password');
 
   return (
     <ErrorBoundary fallback={<div>Something went wrong</div>}>
@@ -50,7 +51,7 @@ function App() {
         </div>
 
         <BrowserRouter>
-          <Suspense fallback={<div style={{ color:'red'}}>Loading...</div>}>
+          <Suspense fallback={<Spinner size={16} color="text-blue-500" />}>
             <Routes>
 
               <Route path='/' element={<Combined />} />
