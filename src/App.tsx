@@ -42,9 +42,9 @@ function App() {
 
   return (
     <ErrorBoundary fallback={<div>Something went wrong</div>}>
-      <div className='bg-primary w-full overflow-hidden'>
+      <div className='bg-gray-900 w-full overflow-hidden'>
         <ToastContainer />
-        <div className={`${styles.paddingX} ${styles.flexCenter}`}>
+        <div className={`${styles.paddingX} ${styles.flexCenter} bg-gray-900`}>
           <div className={`${styles.boxWidth}`}>
             <Navbar />
           </div>

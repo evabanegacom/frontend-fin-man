@@ -1,5 +1,5 @@
-import React from 'react';
-import Plot from 'react-plotly.js';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+
 import BudgetForm from '../form-modals/budget-form';
 
 const Overview = () => {
@@ -12,12 +12,11 @@ const Overview = () => {
   ];
 
   const chartData = [
-    {
-      x: [1, 2, 3, 4, 5],
-      y: [10, 11, 12, 13, 14],
-      type: 'scatter',
-      mode: 'lines+markers',
-    },
+    { name: 'January', value: 10 },
+    { name: 'February', value: 15 },
+    { name: 'March', value: 20 },
+    { name: 'April', value: 25 },
+    { name: 'May', value: 30 },
   ];
 
   const layout: any = {
@@ -83,12 +82,19 @@ const Overview = () => {
         ))}
       </div>
 
-      {/* Plotly Chart */}
-      <div className="w-full flex justify-center mt-5 mb-5">
-  <div className="w-full flex justify-center lg:w-3/4 xl:w-2/3">
-    <Plot data={chartData} layout={layout} style={{ minWidth: '100%'}} />
-  </div>
-</div>
+  <div className="w-full flex justify-center mt-5 mb-5">
+  <div className="w-full lg:w-3/4 xl:w-2/3">
+          <ResponsiveContainer width="100%" height={400}>
+            <LineChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Line type="monotone" dataKey="value" stroke="#8884d8" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
 
 
       {/* Table */}

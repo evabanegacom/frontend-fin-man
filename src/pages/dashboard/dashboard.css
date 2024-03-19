@@ -10,6 +10,11 @@
     position: relative;
 }
 
+.active {
+  background: rgb(30 41 59);
+  color: #fff;
+}
+
 .sidebar-links {
   display: flex;
   align-items: center;

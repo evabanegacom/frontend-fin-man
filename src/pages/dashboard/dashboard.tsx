@@ -43,7 +43,7 @@ function Dashboard() {
 
   return (
     <div className={`min-h-screen flex`}>
-      <aside className={`asidebar bg-primary text-white overflow-hidden`}>
+      <aside className={`asidebar text-white overflow-hidden bg-gray-900`}>
         <div className="p-4">
           <div className={`${isCollapsed ? 'text-sm' : 'text-xl'} font-bold mb-4`}>FICJS ON</div>
           <div className="toggle-btn cursor-pointer" onClick={toggleCollapseMobile}>
