@@ -5,10 +5,10 @@ import BudgetForm from '../form-modals/budget-form';
 const Overview = () => {
   // Dummy data for example
   const aggregatedStats = [
-    { label: 'Total Users', value: 1000 },
-    { label: 'Active Users', value: 800 },
-    { label: 'Revenue', value: '$50,000' },
-    { label: 'New Orders', value: 50 },
+    { label: 'Number of debts', value: 2,   title: 'Amount paid', total: 1000},
+    { label: 'Number of savings', value: 3,  title: 'Amount saved', total: 2000},
+    { label: 'Number of budgets', value: 1,   title: 'Amount used', total: 4000},
+    { label: 'Number of expenses', value: 5,   title: 'Amount spent', total: 8000},
   ];
 
   const chartData = [
@@ -73,14 +73,29 @@ const Overview = () => {
   return (
     <div>
       {/* Aggregated Stats Boxes */}
-      <div className="flex justify-around mb-4">
-        {aggregatedStats.map((stat, index) => (
-          <div key={index} className="bg-white p-4 rounded-md shadow-md">
-            <div className="font-bold text-lg">{stat.label}</div>
-            <div className="text-xl">{stat.value}</div>
-          </div>
-        ))}
+
+<div className="bg-gray-900 flex flex-wrap justify-around items-center mb-4">
+  {aggregatedStats.map((stat, index) => (
+    <div key={index} className="p-4 rounded-md shadow-md mb-4 md:mb-0 md:w-auto md:flex md:flex-col md:items-center">
+      <div className="text-center mb-2">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 inline-block mb-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M7 5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1a1 1 0 0 1-1 1H8a1 1 0 0 1-1-1V5zm-1 4a2 2 0 1 1 4 0v6a2 2 0 1 1-4 0V9zM5 9a4 4 0 0 1 8 0v6a4 4 0 0 1-8 0V9z" clipRule="evenodd" />
+        </svg>
+        <div className="font-bold text-sm text-blue-500">{stat.label}</div>
+        <div className="text-base text-white">{stat.value}</div>
       </div>
+      <div className="text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 inline-block mb-2 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M10 2a8 8 0 0 1 5.657 13.657l-5.657-5.657-5.657 5.657A8 8 0 0 1 10 2zM4 10a6 6 0 0 1 6-6v12a6 6 0 0 1-6-6z" clipRule="evenodd" />
+        </svg>
+        <div className="font-bold text-sm text-green-500">{stat.title}</div>
+        <div className="text-base text-white">{stat.total}</div>
+      </div>
+    </div>
+  ))}
+</div>
+
+
 
   <div className="w-full flex justify-center mt-5 mb-5">
   <div className="w-full lg:w-3/4 xl:w-2/3">

@@ -42,7 +42,7 @@ function Dashboard() {
   };
 
   return (
-    <div className={`min-h-screen flex`}>
+    <div className={`min-h-screen flex `}>
       <aside className={`asidebar text-white overflow-hidden bg-gray-900`}>
         <div className="p-4">
           <div className={`${isCollapsed ? 'text-sm' : 'text-xl'} font-bold mb-4`}>FICJS ON</div>
@@ -52,7 +52,7 @@ function Dashboard() {
         </div>
         <Sidebar isCollapsed={isCollapsed} setCollapsed={setCollapsed} toggleCollapseMobile={toggleCollapseMobile}/>
       </aside>
-      <main className={`flex-1 p-2 bg-gray-100`}>
+      <main className={`flex-1 p-2 bg-gray-200`}>
       <div className="flex flex-col items-center mb-3">
   {user?.activated === false ? (
     <div className="text-center">

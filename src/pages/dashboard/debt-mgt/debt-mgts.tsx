@@ -48,7 +48,7 @@ const DebtMgts = () => {
 
   const tableHeader = ['Avatar', 'Name', 'Target Amount', 'Contribution Type', 'Contribution Amount', 'Completion Date', 'Completed', 'Action']
   return (
-    <div>
+    <div className=''>
       <h1 className="text-center font-bold text-3xl text-gray-900 mt-3">DebtMgts</h1>
       <h5 className="text-center font-bold text-1xl text-gray-900 mt-3">Record the debt(s) you're owing and intend to pay here</h5>
 
