@@ -8,13 +8,6 @@ const Overview = () => {
   const [aggregateData, setAggregateData] = useState<any>({})
   const [toggleTime, setToggleTime] = useState('monthly');
 
-  const aggregatedStats = [
-    { label: 'Number of debts', value: 2, title: 'Amount paid', total: 1000 },
-    { label: 'Number of savings', value: 3, title: 'Amount saved', total: 2000 },
-    { label: 'Number of budgets', value: 1, title: 'Amount used', total: 4000 },
-    { label: 'Number of expenses', value: 5, title: 'Amount spent', total: 8000 },
-  ];
-
   const chartData = [
     { name: 'January', value: 10 },
     { name: 'February', value: 15 },

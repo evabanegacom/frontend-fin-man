@@ -102,6 +102,8 @@ const DebtMgts = () => {
           </tbody>
         </table>
       </div>
+
+      
     </div>
   )
 }

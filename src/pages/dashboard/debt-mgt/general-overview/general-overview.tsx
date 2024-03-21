@@ -14,9 +14,9 @@ const GeneralOverview:React.FC<Props> = ({ selectedDebt, debtMgts}) => {
     <div className='rider-information-details'>
       <div className='information-heading'><b className='ml-1'>Debt Information</b></div>
       <div className='flex flex-col gap-3'>
-        <div>Amount owed: <b> {formatAsCurrency(selectedDebt?.target_amount)}</b></div>
+        <div>Amount owed: <b className='text-rose-500'> {formatAsCurrency(selectedDebt?.target_amount)}</b></div>
         <div>Proposed date of completion: <strong>{formatDateTime(selectedDebt?.target_date)}</strong></div>
-        <div>Interest rate: <strong>{selectedDebt?.interest_rate}</strong></div>
+        <div>Interest rate: <strong className='text-amber-500'>{selectedDebt?.interest_rate}%</strong></div>
       <div>Last payment date: <b>{debtMgts?.last_contribution_date ? formatDateTime(debtMgts?.last_contribution_date) : 'No payments made'}</b></div>
       </div>
     </div>
@@ -27,8 +27,8 @@ const GeneralOverview:React.FC<Props> = ({ selectedDebt, debtMgts}) => {
     </div>
 
     <div>
-      <div className='information-heading'><b className='ml-1'>Purpose of debt</b></div>
-      <div className='mt-3'><strong>{selectedDebt?.purpose}</strong></div>
+      <div className='information-heading'><b className='ml-1'>Debt description</b></div>
+      <div className='mt-3 text-violet-500'><strong>{selectedDebt?.purpose}</strong></div>
     </div>
 
     <div>

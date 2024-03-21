@@ -66,11 +66,11 @@ const DebtOverview = ({ isOpen, setIsOpen, selectedDebt, debtMgts }: Props) => {
           </div>
           <div>
             <div className='rider-earning'><span className='rider-earning-text'>Payment made:</span>
-              <span className='rider-earned-amount'>{selectedDebt?.completed ? formatAsCurrency(debtMgts?.total_payment) :formatAsCurrency(debtPayment?.total_payment)}</span>
+              <span className='rider-earned-amount text-lime-700'>{selectedDebt?.completed ? formatAsCurrency(debtMgts?.total_payment) :formatAsCurrency(debtPayment?.total_payment)}</span>
             </div>
 
             <div className='rider-earning'><span className='rider-earning-text'>Payment Remaining:</span>
-              <span className='rider-earned-amount'>{formatAsCurrency(debtPayment?.upcoming_payment)}</span>
+              <span className='rider-earned-amount text-rose-500'>{formatAsCurrency(debtPayment?.upcoming_payment)}</span>
             </div>
             
               <div className='suspend'>
