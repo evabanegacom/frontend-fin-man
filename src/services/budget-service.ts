@@ -17,14 +17,16 @@ const upcomingBudgets = async (id:number) => {
     return response.data;
     }
 
-const getBudgetsByUser = async () => {
-  const response = await api.get('/budgets/index')
+const getAggregates = async (id:number) => {
+  const response = await api.get(`/monthly_savings?user_id=${id}`)
+  return response.data
 }
 
 const BudgetService = {
     createBudget,
     createBudgetExpense,
-    upcomingBudgets
+    upcomingBudgets,
+    getAggregates
 }
 
 export default BudgetService;

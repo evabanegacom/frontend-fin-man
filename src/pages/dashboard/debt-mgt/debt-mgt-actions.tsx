@@ -6,23 +6,39 @@ import DebtMgtsService from '../../../services/debt-mgt-service';
 import { IoIosAddCircle } from "react-icons/io";
 import DebtPaymentForm from '../../item-forms/debt-payment-form';
 import DebtOverview from './debt-overview';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loader from '../../../constants/Loader';
 
 interface Props {
   isOpen: boolean;
   setIsOpen: (isOpen:boolean) => void;
   selectedDebt: any;
   debtMgts: any;
+  getDebts: () => void;
 }
-const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen, debtMgts}: Props) => {
+const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen, debtMgts, getDebts}: Props) => {
     const ref:any = useRef(null);
     const [openDebtPayment, setOpenDebtPayment] = useState(false);
     const [openDebtOverview, setDebtOverview] = useState(false);
     const [openEditAccountNumber, setEditAccountNumber] = useState(false);
-    
+    const [ deleting, setDeleting ] = useState(false);
+
     const deleteDebt = async() => {
-      const response = await DebtMgtsService.deleteDebt(selectedDebt?.id)
-      console.log(response)
+      setDeleting(true)
+      try{
+        const response = await DebtMgtsService.deleteDebt(selectedDebt?.id)
+        console.log(response)
+        toast.success('Debt successfully removed')
+      }catch(error){
+        console.error('Error deleting debt payment:', error);
+        toast.error('Error deleteting debt')
+      }finally {
+        setDeleting(false)
+        getDebts();
+      }
     }
+
     const debtActions = [
         {
           id: 1,
@@ -45,7 +61,7 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen, debtMgts}: Props) => {
         },
         {
           id: 4,
-          name: 'Delete',
+          name: deleting ? <Loader /> : 'Delete debt',
           icon: <TbTrash color='#F00' />,
           color: '#F00',
           onClick: deleteDebt

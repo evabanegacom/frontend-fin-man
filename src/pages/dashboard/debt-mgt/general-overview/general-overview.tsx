@@ -16,6 +16,7 @@ const GeneralOverview:React.FC<Props> = ({ selectedDebt, debtMgts}) => {
       <div className='flex flex-col gap-3'>
         <div>Amount owed: <b> {formatAsCurrency(selectedDebt?.target_amount)}</b></div>
         <div>Proposed date of completion: <strong>{formatDateTime(selectedDebt?.target_date)}</strong></div>
+        <div>Interest rate: <strong>{selectedDebt?.interest_rate}</strong></div>
       <div>Last payment date: <b>{debtMgts?.last_contribution_date ? formatDateTime(debtMgts?.last_contribution_date) : 'No payments made'}</b></div>
       </div>
     </div>

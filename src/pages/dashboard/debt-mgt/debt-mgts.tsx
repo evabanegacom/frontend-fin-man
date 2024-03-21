@@ -44,7 +44,7 @@ const DebtMgts = () => {
   useEffect(() => {
     getUpcomingDebtMgts()
     getUserDebts()
-  }, [selectedDebt?.id])
+  }, [])
 
   const tableHeader = ['Avatar', 'Name', 'Target Amount', 'Contribution Type', 'Contribution Amount', 'Completion Date', 'Completed', 'Action']
   return (
@@ -89,7 +89,7 @@ const DebtMgts = () => {
                 >
                   <PiDotsThreeVerticalBold />
                   {isOpen && selectedDebt?.id === debt?.id ? (
-                    <div><DebtMgtActions isOpen={true} selectedDebt={selectedDebt} setIsOpen={setIsOpen} debtMgts={debtMgts} /></div>
+                    <div><DebtMgtActions getDebts={getUserDebts} isOpen={isOpen} selectedDebt={selectedDebt} setIsOpen={setIsOpen} debtMgts={debtMgts} /></div>
                   ) : null}
                 </td>
 

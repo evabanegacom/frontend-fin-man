@@ -24,6 +24,7 @@ const DebtMgtForm:React.FC<Props> = ({userDebt}) => {
     contribution_amount: '',
     user_id: user_id,
     avatar: null,
+    interest_rate: 0.0
   });
 
   const validate = saving?.name === '' || saving?.purpose === '' || saving?.target_amount === '' || saving?.category === '' || saving?.target_date === '' || saving?.contribution_type === '' || saving?.contribution_amount === '' || saving?.user_id === '';
@@ -43,6 +44,7 @@ const DebtMgtForm:React.FC<Props> = ({userDebt}) => {
     Object.entries(saving).forEach(([key, value]) => {
       formData.append(key, value as any);
     });
+    console.log(formData)
     try {
       await DebtMgtsService.createDebtMgt(formData);
       // Handle success, redirect, or perform additional actions
@@ -55,7 +57,6 @@ const DebtMgtForm:React.FC<Props> = ({userDebt}) => {
       setLoading(false); // Set loading state to false regardless of success or failure
     }
   };
-  
 
   return (
     <>
@@ -65,10 +66,10 @@ const DebtMgtForm:React.FC<Props> = ({userDebt}) => {
       <label className="block text-gray-400 text-sm font-bold mb-1 mt-3">
         Name of Debt Owner:
       </label>
-      <input required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-400 leading-tight focus:outline-none focus:shadow-outline" type="text" name="name" onChange={handleChange} placeholder="Enter your name" />
+      <input required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-400 leading-tight focus:outline-none focus:shadow-outline" type="text" name="name" onChange={handleChange} placeholder="Enter name" />
 
       <label className="block text-gray-400 text-sm font-bold mt-5 mb-1">
-        Purpose:
+        Debt description:
       </label>
       <textarea required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-400 leading-tight focus:outline-none focus:shadow-outline" name="purpose" onChange={handleChange} placeholder="Purpose"></textarea>
 
@@ -76,6 +77,11 @@ const DebtMgtForm:React.FC<Props> = ({userDebt}) => {
         Debt Amount:
       </label>
       <input required className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-400 leading-tight focus:outline-none focus:shadow-outline" type="text" name="target_amount" onChange={handleChange} placeholder="Enter debt amount" />
+
+      <label className="block text-gray-400 text-sm font-bold mt-5 mb-1">
+        Interst rate(%): (Optional)
+      </label>
+      <input required min={0} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-400 leading-tight focus:outline-none focus:shadow-outline" type="number" name="interest_rate" onChange={handleChange} placeholder="Enter interest rate" />
 
       <select required className="mt-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-400 leading-tight focus:outline-none focus:shadow-outline" name='category' onChange={handleChange} value={saving?.category}>
         <option value="">Select category</option>
