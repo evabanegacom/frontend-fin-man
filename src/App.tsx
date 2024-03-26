@@ -11,7 +11,7 @@ import ErrorBoundary from './components/error-boundary';
 import Spinner from './constants/spinner';
 
 const Overview = lazy(() => import('./pages/dashboard/overview'));
-const Budgets = lazy(() => import('./pages/dashboard/budgets'));
+const Budgets = lazy(() => import('./pages/dashboard/budgets-mgt/budgets'));
 const Savings = lazy(() => import('./pages/dashboard/savings'));
 const DebtMgts = lazy(() => import('./pages/dashboard/debt-mgt/debt-mgts'));
 const Incomes = lazy(() => import('./pages/dashboard/incomes'));

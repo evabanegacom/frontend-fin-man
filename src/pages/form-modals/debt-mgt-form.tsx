@@ -44,7 +44,6 @@ const DebtMgtForm:React.FC<Props> = ({userDebt}) => {
     Object.entries(saving).forEach(([key, value]) => {
       formData.append(key, value as any);
     });
-    console.log(formData)
     try {
       await DebtMgtsService.createDebtMgt(formData);
       // Handle success, redirect, or perform additional actions
@@ -84,8 +83,8 @@ const DebtMgtForm:React.FC<Props> = ({userDebt}) => {
       <input required min={0} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-400 leading-tight focus:outline-none focus:shadow-outline" type="number" name="interest_rate" onChange={handleChange} placeholder="Enter interest rate" />
 
       <select required className="mt-8 shadow appearance-none border rounded w-full py-2 px-3 text-gray-400 leading-tight focus:outline-none focus:shadow-outline" name='category' onChange={handleChange} value={saving?.category}>
-        <option value="">Select category</option>
-        <option value="vacation">vacation</option>
+        <option value="">Select debt category</option>
+        <option value="travel">Travel</option>
         <option value="car">Car</option>
         <option value='health'>Health</option>
         <option value="housing">Housing</option>

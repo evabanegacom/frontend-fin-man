@@ -183,3 +183,252 @@
   background: transparent;
   border: none;
 }
+
+
+.table-wrapper {
+  width: 0;
+  min-width: 100%;
+  overflow-x: auto;
+}
+
+.debt-table {
+    border-collapse: collapse;
+    border: 1px solid #dfddf6;
+    margin-top: 20px;
+  }
+  
+  .debt-table th {
+    background-color: rgba(113, 82, 243, 0.05) !important;
+    padding: 16px 8px;
+    text-align: left;
+    font-size: 14px;
+    line-height: 18px;
+    color: #3d4c5e;
+    border-radius: 4px 4px 0px 0px;
+  }
+  
+  .debt-table td {
+    /* border-bottom: 1px solid #dadada; */
+    padding: 8px;
+    font-size: 14px;
+    line-height: 18px;
+  }
+  
+  .debt-content-body {
+    box-shadow: 0 5px 10px 0 rgba(92, 92, 100, 0.25);
+    border-radius: 10px;
+    background: #fff;
+    padding: 10px;
+    position: absolute;
+    top: -50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 1000;
+    width: fit-content;
+    white-space: nowrap;
+    /* margin-top: auto; */
+    /* margin-right: 50px; */
+    right: 0;
+    /* margin-bottom: 50px; */
+  }  
+
+.debt-action-div {
+  display: flex;
+  flex-direction: column;
+    align-items: flex-start;
+    border-radius: 10px;
+    background: #fff;
+    padding: 0.5rem;
+    float: right;
+}
+
+.debt-action-div > :nth-child(2),
+.debt-action-div > :nth-child(3) {
+  margin-top: 1rem;
+}
+.debt-action-div button {
+  background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 700;
+}
+
+.fleet-overview-container {
+  max-width: 550px;
+  min-width: 550px;
+  min-height: 80vh;
+  max-height: 80vh;
+  /* overflow-y: auto; */
+}
+
+.rider-overview-container button {
+  outline: none;
+  border: none;
+}
+
+.rider-detail-header {
+  color: #0d0d0d;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.rider-number {
+  color: #050505b2;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.rider-image {
+  border-radius: 50%;
+  border: 1px solid #d9d9d9;
+}
+
+.rider-image img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.rider-status {
+  font-size: 14px;
+  line-height: 22px;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-weight: 600;
+}
+
+.rider-earning {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.rider-earning-text {
+  color: var(--Foundation-black-black-900, #050505);
+  font-size: 20.364px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.rider-earned-amount {
+  /* color: rgba(5, 5, 5, 0.7); */
+  font-size: 20.364px;
+  line-height: 32px;
+}
+
+.rider-name {
+  color: #050505;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.user-name {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rider-number {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.suspend {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.suspend button {
+  display: flex;
+  background: transparent;
+  align-items: center;
+  gap: 5px;
+  justify-content: center;
+  padding: 5px 20px;
+  border-radius: 8px;
+  border: 1px solid var(--grey-black-1, #cfcfcf);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 22px;
+}
+
+.rider-information {
+  width: 100%;
+  border-bottom: 1px solid #d9d9d9;
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.rider-info {
+  margin-top: 10px;
+}
+
+.rider-information button {
+  background: transparent;
+  color: #444266;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  line-height: 22px;
+  padding-bottom: 10px;
+}
+
+
+.rider-data {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.rider-information-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  margin-top: 10px;
+  width: 100%;
+  color: #5f5e5e;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+.rider-information-container button{
+  border: none;
+  outline: none;
+}
+.information-heading {
+  background: #f6f6f6;
+  padding: 5px 0;
+  color: #050505;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.ml-1 {
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 650px) {
+  .fleet-overview-container {
+    max-width: 100%;
+    min-width: 100%;
+  }
+
+  .rider-earning-text, .rider-earned-amount {
+    font-size: 14px;
+  }
+}

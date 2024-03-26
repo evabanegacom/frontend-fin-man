@@ -4,10 +4,15 @@ const createBudget = async (formData:any) => {
     const response = await submitFormData(formData, '/budgets')
     return response.data;
     }
-
+    
 const createBudgetExpense = async (data:any) => {
   const response = await api.post('/budgets/budget_expenses', data)
   return response.data;
+}
+
+const getUserBudgets = async (userId:number, pageNumber:number) => {
+    const response = await api.get(`/budgets?user_id=${userId}&page=${pageNumber}`)
+    return response.data;
 }
 
 //http://localhost:3001/api/v1/budgets/1/upcoming_budget_expense
@@ -26,7 +31,8 @@ const BudgetService = {
     createBudget,
     createBudgetExpense,
     upcomingBudgets,
-    getAggregates
+    getAggregates,
+    getUserBudgets
 }
 
 export default BudgetService;

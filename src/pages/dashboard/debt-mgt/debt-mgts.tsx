@@ -8,20 +8,21 @@ import DebtMgtActions from './debt-mgt-actions';
 import './debt-mgt.css';
 import { formatAsCurrency, formatDateTime } from '../../../constants';
 import Loader from '../../../constants/Loader';
+import Pagination from '../../../components/pagination';
 
 const DebtMgts = () => {
   const [debtMgts, setDebtMgts] = useState([])
-  const [userDebts, setUserDebts] = useState([])
-  const [pageNumber, setPageNumber] = useState(1)
+  const [userDebts, setUserDebts] = useState<any>([])
   const user_id = useSelector((state: any) => state?.reducer?.auth?.user?.id);
   const [isOpen, setIsOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedDebt, setSelectedDebt] = useState<any>({});
   const [loading, setLoading] = useState(false)
 
   const getUserDebts = async () => {
     setLoading(true)
     try {
-      const response = await DebtMgtsService.getDebtByUser(user_id, pageNumber)
+      const response = await DebtMgtsService.getDebtByUser(user_id, currentPage)
       setUserDebts(response)
     } catch (error: any) {
       // Handle error
@@ -42,9 +43,22 @@ const DebtMgts = () => {
   };
 
   useEffect(() => {
-    getUpcomingDebtMgts()
     getUserDebts()
-  }, [])
+  }, [currentPage])
+
+
+  useEffect(() => {
+    getUpcomingDebtMgts()
+  }, [selectedDebt?.id])
+
+  // Function to handle page change
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    // You can fetch data for the new page from the backend here
+  };
+  const totalData = userDebts?.total;
+  const itemsPerPage = 20;
+  const totalPages = Math.ceil(totalData / itemsPerPage);
 
   const tableHeader = ['Avatar', 'Name', 'Target Amount', 'Contribution Type', 'Contribution Amount', 'Completion Date', 'Completed', 'Action']
   return (
@@ -69,7 +83,7 @@ const DebtMgts = () => {
               <td colSpan={8} className="text-center">
                 <div className="mx-auto"><Loader /></div>
               </td>
-            </tr> : userDebts.length > 0 ? userDebts.map((debt: any) => (
+            </tr> : userDebts?.debts?.length > 0 ? userDebts?.debts.map((debt: any) => (
               <tr key={debt?.id}>
                 {/* <td className="border px-4 py-2">{debt.id}</td> */}
                 <td className="border-b-2 border-sky-500 px-4 py-2">
@@ -102,6 +116,8 @@ const DebtMgts = () => {
           </tbody>
         </table>
       </div>
+    {/* {pagination} */}
+    <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
 
       
     </div>
