@@ -56,7 +56,7 @@ const DebtMgts = () => {
     setCurrentPage(pageNumber);
     // You can fetch data for the new page from the backend here
   };
-  const totalData = userDebts?.total;
+  const totalData = userDebts?.total || 0;
   const itemsPerPage = 20;
   const totalPages = Math.ceil(totalData / itemsPerPage);
 

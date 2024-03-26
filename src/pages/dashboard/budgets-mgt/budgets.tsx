@@ -9,6 +9,7 @@ import { PiDotsThreeVerticalBold } from 'react-icons/pi';
 import DebtMgtActions from '../debt-mgt/debt-mgt-actions';
 import BudgetMgtActions from './budget-mgt-actions';
 import './budget-mgt.css';
+import Pagination from '../../../components/pagination';
 
 const Budgets = () => {
   const [budgets, setBudgets] = useState<any>([])
@@ -16,6 +17,7 @@ const Budgets = () => {
   const [loading, setLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBudget, setSelectedBudget] = useState<any>({});
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
   const getUpcomingBudgets = async () => {
     const response = await BudgetService.upcomingBudgets(1)
@@ -25,7 +27,7 @@ const Budgets = () => {
   const getUserBudgets = async () => {
     setLoading(true)
     try {
-      const response = await BudgetService.getUserBudgets(user_id, 1)
+      const response = await BudgetService.getUserBudgets(user_id, currentPage)
       console.log(response)
       setBudgets(response)
     } catch (error: any) {
@@ -47,11 +49,21 @@ const Budgets = () => {
     getUserBudgets()
   }, [])
 
+   // Function to handle page change
+   const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+    // You can fetch data for the new page from the backend here
+  };
+
+  const totalData = budgets?.total || 0;
+  const itemsPerPage = 20;
+  const totalPages = Math.ceil(totalData / itemsPerPage);
+
   return (
     <div>
       <h1 className="text-center font-bold text-3xl text-gray-900 mt-3">Budgets</h1>
       <h5 className="text-center font-bold text-1xl text-gray-900 mt-3">Record your planned budgets</h5>
-      <BudgetForm />
+      <BudgetForm getBudgets={getUserBudgets}/>
       <br />
       <div className='table-wrapper'>
         <table className="table-auto w-full text-center debt-table">
@@ -102,7 +114,7 @@ const Budgets = () => {
           </tbody>
         </table>
       </div>
-      {/* <BudgetExpenseForm /> */}
+      <Pagination totalPages={totalPages} currentPage={currentPage} onPageChange={handlePageChange} />
 
     </div>
   )

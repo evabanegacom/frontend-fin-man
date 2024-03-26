@@ -4,6 +4,7 @@ import { IoIosAddCircle } from 'react-icons/io';
 import { TbTrash } from 'react-icons/tb';
 import Loader from '../../../constants/Loader';
 import BudgetExpenseForm from './budget-expense-form';
+import BudgetOverview from './budget-overview';
 
 interface Props {
     isOpen: boolean;
@@ -15,6 +16,7 @@ interface Props {
 const BudgetMgtActions = ({isOpen, selectedBudget, setIsOpen, budgets, getUserBudgets}: Props) => {
     const ref:any = useRef(null);
     const [openbudgetExpense, setOpenBudgetExpense] = useState(false);
+    const [ openBudgetOverview, setBudgetOverview ] = useState(false);
 
     const debtActions = [
         {
@@ -22,9 +24,9 @@ const BudgetMgtActions = ({isOpen, selectedBudget, setIsOpen, budgets, getUserBu
           name: 'Budget overview',
           color: '#7975B6',
           icon: <HiOutlineEye color='#7975B6' />,
-        //   onClick: () => {
-        //     setDebtOverview(true)
-        //   }
+          onClick: () => {
+            setBudgetOverview(true)
+          }
         },
         {
           id: 3,
@@ -57,7 +59,7 @@ const BudgetMgtActions = ({isOpen, selectedBudget, setIsOpen, budgets, getUserBu
             // if (!openDebtPayment && !openDebtOverview && !openEditAccountNumber) {
             //   setIsOpen(false);
             // }
-            if (!openbudgetExpense) {
+            if (!openbudgetExpense && !openBudgetOverview) {
               setIsOpen(false);
             }
           }
@@ -86,7 +88,7 @@ const BudgetMgtActions = ({isOpen, selectedBudget, setIsOpen, budgets, getUserBu
       </div>
     </div>
     <BudgetExpenseForm isOpen={openbudgetExpense} setIsOpen={setOpenBudgetExpense} selectedBudget={selectedBudget} />
-    {/* <DebtOverview debtMgts={debtMgts} isOpen={openDebtOverview} setIsOpen={setDebtOverview} selectedDebt={selectedDebt} /> */}
+    <BudgetOverview budgets={budgets} isOpen={openBudgetOverview} setIsOpen={setBudgetOverview} selectedBudget={selectedBudget} />
 </>
   )
 }

@@ -2,8 +2,12 @@ import React, { useState } from 'react';
 import BudgetService from '../../services/budget-service';
 import Loader from '../../constants/Loader';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
-const BudgetForm = () => {
+interface Props {
+  getBudgets: () => void;
+}
+const BudgetForm:React.FC<Props> = ({ getBudgets }) => {
   const user_id = useSelector((state: any) => state?.reducer?.auth?.user?.id);
 
   const [loading, setLoading] = useState(false);
@@ -37,11 +41,14 @@ const BudgetForm = () => {
     try {
       const response = await BudgetService.createBudget(formData);
       console.log(response)
+      toast.success('Successfully created budget')
+      getBudgets();
       // Handle success, redirect, or perform additional actions
     } catch (error) {
       // Handle error
       console.log(error)
       console.error('Error creating budget:', error);
+      toast.error('Error creating budget')
     } finally {
       setLoading(false); // Set loading state to false regardless of success or failure
     }
@@ -55,8 +62,8 @@ const BudgetForm = () => {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="purpose" className="block text-gray-100 font-bold mb-2">Purpose:</label>
-        <textarea required id="purpose" name="purpose" onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
+        <label htmlFor="purpose" className="block text-gray-100 font-bold mb-2">Description:</label>
+        <textarea id="purpose" name="purpose" onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
       </div>
 
       <div className="mb-4">
@@ -77,7 +84,7 @@ const BudgetForm = () => {
       </div>
 
       <div className="mb-4">
-        <label htmlFor="target_date" className="block text-gray-100 font-bold mb-2">Date of completion</label>
+        <label htmlFor="target_date" className="block text-gray-100 font-bold mb-2">Target Date for Budget Utilization</label>
         <input required type="date" id="target_date" name="target_date" onChange={handleChange} className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500" />
       </div>
 

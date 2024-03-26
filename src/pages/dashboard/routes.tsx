@@ -1,50 +1,35 @@
-import { FaHome, FaInfoCircle, FaEnvelope, FaUber, FaUsers, FaUser, FaGrinHearts, FaMobile, FaGlobeAmericas, FaWallet, FaChartBar } from 'react-icons/fa';
+import { RiMoneyDollarCircleLine, RiBankLine, RiMoneyEuroCircleLine, RiBarChartHorizontalLine, RiDashboardLine, RiFileList3Line, RiMoneyCnyCircleLine } from 'react-icons/ri';
 
 const routes = [
   {
     href: '/dashboard/budgets',
     title: 'Budgets',
-    icon: <FaHome size={15}/>,
+    icon: <RiFileList3Line size={15} />,
   },
   {
     href: '/dashboard/savings',
     title: 'Savings',
-    icon: <FaInfoCircle size={15} />,
+    icon: <RiMoneyDollarCircleLine size={15} />,
   },
   {
     href: '/dashboard/incomes',
     title: 'Income',
-    icon: <FaEnvelope size={15} />,
+    icon: <RiBankLine size={15} />,
   },
   {
     href: '/dashboard/expenses',
     title: 'Expenses',
-    icon: <FaUser size={15} />,
+    icon: <RiMoneyEuroCircleLine size={15} />,
   },
   {
     href: '/dashboard/debt-mgts',
     title: 'Debt Mgt',
-    icon: <FaChartBar size={15} />,
+    icon: <RiMoneyCnyCircleLine size={15} />, // You can choose another suitable debt management icon here
   },
   {
     href: '/dashboard/overview',
     title: 'Overview',
-    icon: <FaMobile size={15} />,
-  },
-  {
-    href: '/dashboard/username',
-    title: '회원관리',
-    icon: <FaWallet size={15} />,
-  },
-  {
-    href: '/dashboard/username',
-    title: '회원관리',
-    icon: <FaUsers size={15} />,
-  },
-  {
-    href: '/dashboard/username',
-    title: '회원관리',
-    icon: <FaGlobeAmericas size={15} />,
+    icon: <RiDashboardLine size={15} />,
   }
 ];
 
