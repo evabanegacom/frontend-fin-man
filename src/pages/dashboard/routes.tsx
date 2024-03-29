@@ -1,4 +1,6 @@
 import { RiMoneyDollarCircleLine, RiBankLine, RiMoneyEuroCircleLine, RiBarChartHorizontalLine, RiDashboardLine, RiFileList3Line, RiMoneyCnyCircleLine } from 'react-icons/ri';
+import { AiOutlineLike } from 'react-icons/ai';
+
 
 const routes = [
   {
@@ -30,6 +32,11 @@ const routes = [
     href: '/dashboard/overview',
     title: 'Overview',
     icon: <RiDashboardLine size={15} />,
+  },
+  {
+    href: '/dashboard/recommendations',
+    title: 'View tips',
+    icon: <AiOutlineLike size={15} />,
   }
 ];
 

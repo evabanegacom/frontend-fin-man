@@ -24,6 +24,8 @@ const Budgets = () => {
     setBudgets(response.data)
   }
 
+  console.log({selectedBudget})
+
   const getUserBudgets = async () => {
     setLoading(true)
     try {

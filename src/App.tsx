@@ -21,6 +21,7 @@ const SignUp = lazy(() => import('./auth/sign-up'));
 const Login = lazy(() => import('./auth/login'));
 const ForgotPassword = lazy(() => import('./auth/forgot-password'));
 const ResetPassword = lazy(() => import('./auth/reset-password'));
+const Recommendations = lazy(() => import('./pages/recommendations/recommendations'));
 
 const Combined = () => {
   return (
@@ -71,7 +72,7 @@ function App() {
                     <Route path='/dashboard/incomes' element={<Incomes />} />
                     <Route path='/dashboard/expenses' element={<Expenses />} />
                     <Route path='/dashboard/overview' element={<Overview />} />
-
+                    <Route path='/dashboard/recommendations' element={<Recommendations />} />
                   </Route>
                 </>
               )}

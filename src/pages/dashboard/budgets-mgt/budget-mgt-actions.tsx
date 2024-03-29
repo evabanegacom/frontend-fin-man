@@ -1,10 +1,11 @@
-import React, { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { HiOutlineEye } from 'react-icons/hi';
 import { IoIosAddCircle } from 'react-icons/io';
 import { TbTrash } from 'react-icons/tb';
 import Loader from '../../../constants/Loader';
 import BudgetExpenseForm from './budget-expense-form';
 import BudgetOverview from './budget-overview';
+import BudgetService from '../../../services/budget-service';
 
 interface Props {
     isOpen: boolean;
@@ -15,8 +16,24 @@ interface Props {
   }
 const BudgetMgtActions = ({isOpen, selectedBudget, setIsOpen, budgets, getUserBudgets}: Props) => {
     const ref:any = useRef(null);
+    const [deleting, setDeleting] = useState(false);
     const [openbudgetExpense, setOpenBudgetExpense] = useState(false);
     const [ openBudgetOverview, setBudgetOverview ] = useState(false);
+
+    const deleteBudget = async () => {
+      setDeleting(true);
+      try {
+        const response = await BudgetService.deleteBudget(selectedBudget?.id)
+        console.log(response)
+        getUserBudgets()
+      } catch (error: any) {
+        // Handle error
+        console.error('Error deleting budget:', error);
+      } finally {
+        setDeleting(false);
+        setIsOpen(false);
+      }
+    }
 
     const debtActions = [
         {
@@ -38,13 +55,13 @@ const BudgetMgtActions = ({isOpen, selectedBudget, setIsOpen, budgets, getUserBu
             setOpenBudgetExpense(true)
           }
         },
-        // {
-        //   id: 4,
-        //   name: deleting ? <Loader /> : 'Delete debt',
-        //   icon: <TbTrash color='#F00' />,
-        //   color: '#F00',
-        //   onClick: deleteDebt
-        // }
+        {
+          id: 4,
+          name: deleting ? <Loader /> : 'Delete debt',
+          icon: <TbTrash color='#F00' />,
+          color: '#F00',
+          onClick: deleteBudget
+        }
       ]
 
       useEffect(() => {
@@ -69,7 +86,7 @@ const BudgetMgtActions = ({isOpen, selectedBudget, setIsOpen, budgets, getUserBu
         return () => {
           document.removeEventListener("mousedown", handleClickOutside);
         };
-      }, [ref, setIsOpen, openbudgetExpense]);  
+      }, [ref, setIsOpen, openbudgetExpense, openBudgetOverview]);  
 
       if (!isOpen) return null
 

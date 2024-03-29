@@ -1,5 +1,4 @@
 import React from 'react';
-import './general-overview.css';
 import { formatAsCurrency, formatDateTime } from '../../../../constants';
 
 interface Props {
