@@ -57,7 +57,7 @@ const BudgetMgtActions = ({isOpen, selectedBudget, setIsOpen, budgets, getUserBu
         },
         {
           id: 4,
-          name: deleting ? <Loader /> : 'Delete debt',
+          name: deleting ? <Loader /> : 'Delete budget',
           icon: <TbTrash color='#F00' />,
           color: '#F00',
           onClick: deleteBudget

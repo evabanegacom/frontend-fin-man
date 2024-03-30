@@ -5,6 +5,7 @@ import budgetsService from '../../../services/debt-mgt-service';
 import { formatAsCurrency } from '../../../constants';
 import GeneralOverview from './general-overview';
 import BudgetExpenses from './budget-expenses';
+import BudgetService from '../../../services/budget-service';
 
 interface Props {
   isOpen: boolean;
@@ -14,27 +15,27 @@ interface Props {
 }
 
 const BudgetOverview = ({ isOpen, setIsOpen, selectedBudget, budgets }: Props) => {
-  const [ debtPayment, setDebtPayment ] = useState<any>({})
+  const [ usedBudget, setUsedBudget ] = useState<any>({})
   const [ toggleButton, setToggleButton] = useState('General information')
-  console.log({selectedBudget})
-  const upcomingDebtPayment = async () => {
-    const response = await budgetsService.upcomingDebts(selectedBudget?.id)
-    setDebtPayment(response)
+
+  const upcomingBudgetUsage = async () => {
+    const response = await BudgetService.upcomingBudgets(selectedBudget?.id)
+    setUsedBudget(response)
   }
 
   const colorStatus = (status: any) => {
     switch (status) {
-      case 'true':
-        return { backgroundColor: "#E6FFE6", color: "#549186" };
       case 'false':
-        return { backgroundColor: "#FFE8B0", color: "#FFB400" };
+        return { backgroundColor: "#E6FFE6", color: "#549186" };
+      case 'true':
+        return { backgroundColor: "#FFE8B0", color: "#D95069" };
       default:
         return { backgroundColor: "black", color: "white" };
     }
   }
 
   useEffect(() => {
-    upcomingDebtPayment()
+    upcomingBudgetUsage()
   }, [])
 
   const deleteDebt = async() => {
@@ -45,6 +46,8 @@ const BudgetOverview = ({ isOpen, setIsOpen, selectedBudget, budgets }: Props) =
   if (!isOpen) return null
 
   const trueOrFalse = selectedBudget?.completed ? 'true' : 'false'
+
+  console.log(usedBudget)
 
   return (
     <div className='modal-overlay'>
@@ -60,17 +63,17 @@ const BudgetOverview = ({ isOpen, setIsOpen, selectedBudget, budgets }: Props) =
               <div className='rider-name'>{selectedBudget?.first_name} {" "} {selectedBudget?.last_name}</div>
               <div className='rider-number'>
                 <span className='rider-number'>{selectedBudget?.mobile}</span>
-                <span style={colorStatus(trueOrFalse)} className='rider-status'>{trueOrFalse === 'true' ? 'Completed' : 'Not completed'}</span>
+                <span style={colorStatus(trueOrFalse)} className='rider-status'>{trueOrFalse === 'true' ? 'Exhausted' : 'Not Exhausted'}</span>
               </div>
             </div>
           </div>
           <div>
-            <div className='rider-earning'><span className='rider-earning-text'>Payment made:</span>
-              <span className='rider-earned-amount text-lime-700'>{selectedBudget?.completed ? formatAsCurrency(budgets?.total_payment) :formatAsCurrency(debtPayment?.total_payment)}</span>
+            <div className='rider-earning'><span className='rider-earning-text'>Amount Used:</span>
+              <span className='rider-earned-amount text-rose-500'>{trueOrFalse === 'false' ? formatAsCurrency(usedBudget?.amount_used) :formatAsCurrency(usedBudget?.total_payment)}</span>
             </div>
 
-            <div className='rider-earning'><span className='rider-earning-text'>Payment Remaining:</span>
-              <span className='rider-earned-amount text-rose-500'>{formatAsCurrency(debtPayment?.upcoming_payment)}</span>
+            <div className='rider-earning'><span className='rider-earning-text'>Amount Left:</span>
+              <span className='rider-earned-amount text-lime-700'>{formatAsCurrency(usedBudget?.upcoming_expense) || 0}</span>
             </div>
             
               <div className='suspend'>
@@ -83,7 +86,7 @@ const BudgetOverview = ({ isOpen, setIsOpen, selectedBudget, budgets }: Props) =
            <button onClick={() => setToggleButton('General information')} style={{ borderBottom: toggleButton==='General information' ? '2px solid #444266' : ''}}>General information</button>
            <button onClick={() => setToggleButton('expenses')} style={{ borderBottom: toggleButton==='expenses' ? '2px solid #444266' : ''}}>Payment history ({selectedBudget?.length})</button>
           </div>
-          {toggleButton === 'General information' ? <GeneralOverview selectedBudget={selectedBudget} budgets={budgets}/> : <BudgetExpenses selectedBudget={selectedBudget} />}
+          {toggleButton === 'General information' ? <GeneralOverview selectedBudget={selectedBudget} usedBudget={usedBudget}/> : <BudgetExpenses selectedBudget={selectedBudget} />}
 
            
           </div>

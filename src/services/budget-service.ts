@@ -32,13 +32,19 @@ const deleteBudget = async (id:number) => {
   return response.data
 }
 
+const budget_expenses = async (id:number) => {
+  const response = await api.get(`/budgets/budget_usage?id=${id}`)
+  return response.data;
+}
+
 const BudgetService = {
     createBudget,
     createBudgetExpense,
     upcomingBudgets,
     getAggregates,
     getUserBudgets,
-    deleteBudget
+    deleteBudget,
+    budget_expenses
 }
 
 export default BudgetService;

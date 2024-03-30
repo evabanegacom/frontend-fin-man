@@ -9,14 +9,14 @@ export const signedInLinks = [
     id: "#features",
     title: "Features",
   },
-  {
-    id: "#product",
-    title: "Product",
-  },
-  {
-    id: "#clients",
-    title: "Clients",
-  },
+  // {
+  //   id: "#product",
+  //   title: "Product",
+  // },
+  // {
+  //   id: "#clients",
+  //   title: "Clients",
+  // },
 
   {
     id: '/dashboard/overview',
@@ -30,7 +30,7 @@ export const signedInLinks = [
 
 ];
 
-export const signedOutLinks = [
+const homePageLinks = [
   {
     id: "/",
     title: "Home",
@@ -47,6 +47,32 @@ export const signedOutLinks = [
     id: "#clients",
     title: "Clients",
   },
+  {
+    id: '/login',
+    title: 'Login'
+  },
+  {
+    
+  }
+];
+
+export const signedOutLinks = [
+  {
+    id: "/",
+    title: "Home",
+  },
+  {
+    id: "#features",
+    title: "Features",
+  },
+  {
+    id: "#product",
+    title: "Product",
+  },
+  // {
+  //   id: "#clients",
+  //   title: "Clients",
+  // },
 
   // {
   //   id: 'signup',
@@ -54,7 +80,7 @@ export const signedOutLinks = [
   // },
 
   {
-    id: 'login',
+    id: '/login',
     title: 'Login'
   },
 
