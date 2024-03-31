@@ -20,6 +20,7 @@ const BudgetOverview = ({ isOpen, setIsOpen, selectedBudget, budgets }: Props) =
 
   const upcomingBudgetUsage = async () => {
     const response = await BudgetService.upcomingBudgets(selectedBudget?.id)
+    console.log(response)
     setUsedBudget(response)
   }
 
@@ -46,8 +47,6 @@ const BudgetOverview = ({ isOpen, setIsOpen, selectedBudget, budgets }: Props) =
   if (!isOpen) return null
 
   const trueOrFalse = selectedBudget?.completed ? 'true' : 'false'
-
-  console.log(usedBudget)
 
   return (
     <div className='modal-overlay'>
@@ -84,7 +83,7 @@ const BudgetOverview = ({ isOpen, setIsOpen, selectedBudget, budgets }: Props) =
 
 <div className='rider-information'>
            <button onClick={() => setToggleButton('General information')} style={{ borderBottom: toggleButton==='General information' ? '2px solid #444266' : ''}}>General information</button>
-           <button onClick={() => setToggleButton('expenses')} style={{ borderBottom: toggleButton==='expenses' ? '2px solid #444266' : ''}}>Payment history ({selectedBudget?.length})</button>
+           <button onClick={() => setToggleButton('expenses')} style={{ borderBottom: toggleButton==='expenses' ? '2px solid #444266' : ''}}>Expenses ({usedBudget?.expenses_count})</button>
           </div>
           {toggleButton === 'General information' ? <GeneralOverview selectedBudget={selectedBudget} usedBudget={usedBudget}/> : <BudgetExpenses selectedBudget={selectedBudget} />}
 

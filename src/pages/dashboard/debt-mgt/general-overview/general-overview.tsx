@@ -4,9 +4,10 @@ import { formatAsCurrency, formatDateTime } from '../../../../constants';
 interface Props {
     selectedDebt: any;
     debtMgts: any;
+    debtPayment: any;
     }
 
-const GeneralOverview:React.FC<Props> = ({ selectedDebt, debtMgts}) => {
+const GeneralOverview:React.FC<Props> = ({ selectedDebt, debtMgts, debtPayment}) => {
   return (
     <div className='rider-information-container'>
 
@@ -37,7 +38,7 @@ const GeneralOverview:React.FC<Props> = ({ selectedDebt, debtMgts}) => {
 
     <div>
       <div className='information-heading'><b className='ml-1'>Number of payments</b></div>
-      <div className='mt-3'><b>{selectedDebt?.wallet?.transactions.filter((transaction: any) => transaction?.status === 'completed').length}</b></div>
+      <div className='mt-3'><b>{debtPayment?.expenses_count}</b></div>
     </div>
 
   </div>  )

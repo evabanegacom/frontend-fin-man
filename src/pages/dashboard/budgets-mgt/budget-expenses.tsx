@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react'
 import { formatAsCurrency, formatDateTime } from '../../../constants';
 import BudgetService from '../../../services/budget-service';
+import Loader from '../../../constants/Loader';
 
 interface Props {
     selectedBudget: any;
     }
 const BudgetExpenses:React.FC<Props> = ({ selectedBudget }) => {
   const [ budgetExpenses, setBudgetExpenses ] = useState<any>([])
+  const [loading, setLoading] = useState(false)
+  
   const budgetUsage = async() => {
+    setLoading(true)
     const response = await BudgetService.budget_expenses(selectedBudget?.id)
     setBudgetExpenses(response)
+    setLoading(false)
   }
 
   useEffect(() =>  {
@@ -31,7 +36,12 @@ const BudgetExpenses:React.FC<Props> = ({ selectedBudget }) => {
           </tr>
         </thead>
         <tbody>
-          {budgetExpenses.map((debt:any) => (
+          {loading? <tr>
+              <td colSpan={8} className="text-center">
+                <div className="mx-auto"><Loader /></div>
+              </td>
+            </tr> :
+          budgetExpenses?.length > 0 ? budgetExpenses.map((debt:any) => (
             <tr key={debt?.id}>
               {/* <td className="border-b-2 border-sky-500 px-4 py-2">{debt?.id}</td> */}
               
@@ -50,7 +60,11 @@ const BudgetExpenses:React.FC<Props> = ({ selectedBudget }) => {
               </td> */}
 
             </tr>
-          ))}
+          )) : <tr>
+            <td colSpan={8} className="text-center">
+              <div className="mx-auto">No data available</div>
+            </td>
+          </tr>}
         </tbody>
       </table>
       </div>

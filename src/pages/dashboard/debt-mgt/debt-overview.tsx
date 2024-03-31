@@ -19,6 +19,7 @@ const DebtOverview = ({ isOpen, setIsOpen, selectedDebt, debtMgts }: Props) => {
   
   const upcomingDebtPayment = async () => {
     const response = await DebtMgtsService.upcomingDebts(selectedDebt?.id)
+    console.log(response)
     setDebtPayment(response)
   }
 
@@ -81,9 +82,9 @@ const DebtOverview = ({ isOpen, setIsOpen, selectedDebt, debtMgts }: Props) => {
 
 <div className='rider-information'>
            <button onClick={() => setToggleButton('General information')} style={{ borderBottom: toggleButton==='General information' ? '2px solid #444266' : ''}}>General information</button>
-           <button onClick={() => setToggleButton('payment history')} style={{ borderBottom: toggleButton==='payment history' ? '2px solid #444266' : ''}}>Payment history ({selectedDebt?.length})</button>
+           <button onClick={() => setToggleButton('payment history')} style={{ borderBottom: toggleButton==='payment history' ? '2px solid #444266' : ''}}>Payment history ({debtPayment?.expenses_count})</button>
           </div>
-          {toggleButton === 'General information' ? <GeneralOverview selectedDebt={selectedDebt} debtMgts={debtMgts}/> : <PaymentHistory selectedDebt={selectedDebt} />}
+          {toggleButton === 'General information' ? <GeneralOverview debtPayment={debtPayment} selectedDebt={selectedDebt} debtMgts={debtMgts}/> : <PaymentHistory selectedDebt={selectedDebt} />}
 
            
           </div>

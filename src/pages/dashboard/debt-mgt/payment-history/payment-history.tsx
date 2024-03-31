@@ -1,16 +1,21 @@
 import { useEffect, useState } from 'react'
 import DebtMgtsService from '../../../../services/debt-mgt-service';
 import { formatAsCurrency, formatDateTime } from '../../../../constants';
+import Loader from '../../../../constants/Loader';
 
 interface Props {
     selectedDebt: any;
     }
 const PaymentHistory:React.FC<Props> = ({ selectedDebt }) => {
   const [ debtPayment, setDebtPayment ] = useState<any>([])
+  const [loading, setLoading] = useState(false)
+
   const debtPayments = async() => {
+    setLoading(true)
     const response = await DebtMgtsService.debtPayments(selectedDebt?.id)
     console.log(response)
     setDebtPayment(response)
+    setLoading(false)
   }
 
   useEffect(() =>  {
@@ -32,7 +37,12 @@ const PaymentHistory:React.FC<Props> = ({ selectedDebt }) => {
           </tr>
         </thead>
         <tbody>
-          {debtPayment.map((debt:any) => (
+          {loading? <tr>
+              <td colSpan={8} className="text-center">
+                <div className="mx-auto"><Loader /></div>
+              </td>
+            </tr> :
+          debtPayment?.length > 0 ? debtPayment.map((debt:any) => (
             <tr key={debt?.id}>
               {/* <td className="border-b-2 border-sky-500 px-4 py-2">{debt?.id}</td> */}
               
@@ -51,7 +61,11 @@ const PaymentHistory:React.FC<Props> = ({ selectedDebt }) => {
               </td> */}
 
             </tr>
-          ))}
+          )) : <tr>
+            <td colSpan={8} className="text-center font-bold text-2xl">
+              No data available. No payments made yet.
+            </td>
+          </tr>}
         </tbody>
       </table>
       </div>

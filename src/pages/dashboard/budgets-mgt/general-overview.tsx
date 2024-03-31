@@ -13,8 +13,8 @@ const GeneralOverview:React.FC<Props> = ({ selectedBudget, usedBudget}) => {
     <div className='rider-information-details'>
       <div className='information-heading'><b className='ml-1'>Budget Information</b></div>
       <div className='flex flex-col gap-3'>
-        <div>Amount owed: <b className='text-rose-500'> {formatAsCurrency(selectedBudget?.target_amount)}</b></div>
-        <div>Proposed date of completion: <strong>{formatDateTime(selectedBudget?.target_date)}</strong></div>
+        <div>Budget amount: <b className='text-rose-500'> {formatAsCurrency(selectedBudget?.target_amount)}</b></div>
+        <div>Proposed date of utilisation: <strong>{formatDateTime(selectedBudget?.target_date)}</strong></div>
       <div>Last expense date: <b>{usedBudget?.last_contribution_date ? formatDateTime(usedBudget?.last_contribution_date) : 'No payments made'}</b></div>
       </div>
     </div>
@@ -31,7 +31,7 @@ const GeneralOverview:React.FC<Props> = ({ selectedBudget, usedBudget}) => {
 
     <div>
       <div className='information-heading'><b className='ml-1'>Number of expenses</b></div>
-      <div className='mt-3'><b>{selectedBudget?.wallet?.transactions.filter((transaction: any) => transaction?.status === 'completed').length}</b></div>
+      <div className='mt-3'><b>{usedBudget?.expenses_count}</b></div>
     </div>
 
   </div>  )

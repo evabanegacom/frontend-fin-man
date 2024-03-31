@@ -84,7 +84,7 @@ const Budgets = () => {
               <tr key={budget?.id}>
                 {/* <td className="border px-4 py-2">{budget.id}</td> */}
                 <td className="border-b-2 border-sky-500 px-4 py-2">
-                  <img src={budget?.avatar?.url} alt="Avatar" className="h-12 w-12 object-cover rounded-full" />
+                  <img src={budget?.avatar?.url || 'https://via.placeholder.com/150?text=Avatar'} alt="Avatar" className="h-12 w-12 object-cover rounded-full" />
                 </td>
                 <td className="border-b-2 border-sky-500 px-4 py-2">{budget?.name}</td>
                 {/* <td className="border-b-2 border-sky-500 px-4 py-2">{budget?.purpose}</td> */}
