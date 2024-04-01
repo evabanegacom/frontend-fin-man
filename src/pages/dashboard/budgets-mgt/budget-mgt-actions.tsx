@@ -48,10 +48,9 @@ const BudgetMgtActions = ({isOpen, selectedBudget, setIsOpen, budgets, getUserBu
         {
           id: 3,
           name: 'Record budget expense',
-          icon: <IoIosAddCircle color='#C8CC66' />,
-          color: '#C8CC66',
+          icon: <IoIosAddCircle color='#FFB400' />,
+          color: '#FFB400',
           onClick: () => {
-            console.log('Record budget expense')
             setOpenBudgetExpense(true)
           }
         },

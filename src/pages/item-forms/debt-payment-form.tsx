@@ -55,7 +55,7 @@ const DebtPaymentForm = ({ isOpen, setIsOpen, selectedDebt }: Props) => {
         <button onClick={() => setIsOpen(false)} className='close-modal'><FaTimes className='float-right border mb-4' /></button>
         <h5 className='font-bold mb-4'>Record debt payment</h5>
 
-        <form onSubmit={handleSubmit} className="flex flex-col items-center w-full sm:w-auto">
+        <form onSubmit={handleSubmit} className="flex flex-col items-center">
           <input
             type="text"
             name="name"

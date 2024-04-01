@@ -33,7 +33,6 @@ const GeneralOverview:React.FC<Props> = ({ selectedBudget, usedBudget}) => {
       <div className='information-heading'><b className='ml-1'>Number of expenses</b></div>
       <div className='mt-3'><b>{usedBudget?.expenses_count}</b></div>
     </div>
-
   </div>  )
 }
 

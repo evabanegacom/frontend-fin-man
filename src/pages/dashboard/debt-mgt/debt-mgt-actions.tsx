@@ -53,8 +53,8 @@ const DebtMgtActions = ({isOpen, selectedDebt, setIsOpen, debtMgts, getDebts}: P
           id: 3,
 
           name: 'Record debt payment',
-          icon: <IoIosAddCircle color='#C8CC66' />,
-          color: '#C8CC66',
+          icon: <IoIosAddCircle color='#FFB400' />,
+          color: '#FFB400',
           onClick: () => {
             setOpenDebtPayment(true)
           }

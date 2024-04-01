@@ -28,7 +28,7 @@ const getAggregates = async (id:number) => {
 }
 
 const deleteBudget = async (id:number) => {
-  const response = await api.delete(`/budgets/${id}`)
+  const response = await api.delete(`/budgets/delete_budget?id=${id}`)
   return response.data
 }
 
